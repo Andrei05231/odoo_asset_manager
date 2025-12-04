@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <!--Action-->
+    <record id="asset_monitor_action" model="ir.actions.act_window">
+        <field name="name">Monitor</field>
+        <field name="res_model">assets_monitor</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Form View: Show all fields -->
+    <record id="asset_monitor_form" model="ir.ui.view">
+        <field name="name">assets.monitor.form</field>
+        <field name="model">assets_monitor</field>
+        <field name="arch" type="xml">
+            <form string="Monitor">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="is_used"/>
+                        <field name="computer_id"/>
+                        <field name="serial_numebr"/>
+                        <field name="inventory_number"/>
+                        <field name="model"/>
+                        <field name="details"/>
+                        <field name="user_id"/>
+                        <field name="price"/>
+                        <field name="project_id"/>
+                        <field name="company_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View: Show only key fields -->
+    <record id="asset_monitor_list" model="ir.ui.view">
+        <field name="name">assets.monitor.list</field>
+        <field name="model">assets_monitor</field>
+        <field name="arch" type="xml">
+            <list string="Monitors">
+                <field name="name"/>
+                <field name="computer_id"/>
+                <field name="user_id"/>
+                <field name="model"/>
+                <field name="price"/>
+            </list>
+        </field>
+    </record>
+
+    <!--Menu-->
+    <menuitem id="menu_assets_monitor" 
+        name="Monitors"
+        parent="menu_assets_root" 
+        action="asset_monitor_action"/>
+
+</odoo>

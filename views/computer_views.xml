@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+	<!--Action-->
+	<record id="asset_computer_action" model="ir.actions.act_window">
+		<field name="name">Computer</field>
+		<field name="res_model">assets_computer</field>
+		<field name="view_mode">list,form</field>
+	</record>
+
+
+<!-- Form View: Show all fields -->
+<record id="asset_computer_form" model="ir.ui.view">
+    <field name="name">assets.computer.form</field>
+    <field name="model">assets_computer</field>
+    <field name="arch" type="xml">
+        <form string="Computer">
+            <sheet>
+                <group>
+                    <field name="name"/>
+                    <field name="is_used"/>
+                    <field name="inventoryNumber"/>
+                    <field name="serialNumber"/>
+                    <field name="user"/>
+                    <field name="details"/>
+                    <field name="price"/>
+                    <field name="project_id"/>
+                    <field name="company_id"/>
+                    <field name="computer_type"/>
+                    <field name="model"/>
+                    <field name="cpu"/>
+                    <field name="gpu"/>
+                    <field name="memory"/>
+                    <field name="ip_address"/>
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<!-- List View: Show only key fields -->
+<record id="asset_computer_list" model="ir.ui.view">
+    <field name="name">assets.computer.list</field>
+    <field name="model">assets_computer</field>
+    <field name="arch" type="xml">
+        <list string="CompSuters">
+            <field name="name"/>
+            <field name="user"/>
+            <field name="computer_type"/>
+            <field name="model"/>
+            <field name="cpu"/>
+            <field name="gpu"/>
+            <field name="price"/>
+        </list>
+    </field>
+</record>
+
+	<!--Menu-->
+	<menuitem id="menu_assets_root" name="Asset Manager"/>
+	<menuitem id="menu_assets_computer" 
+		name="Computers"
+		parent="menu_assets_root" 
+		action="asset_computer_action"/>
+
+</odoo>
