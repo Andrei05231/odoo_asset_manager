@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <!--Action-->
+    <record id="asset_software_action" model="ir.actions.act_window">
+        <field name="name">Software</field>
+        <field name="res_model">assets_software</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Form View: Show all fields -->
+    <record id="asset_software_form" model="ir.ui.view">
+        <field name="name">assets.software.form</field>
+        <field name="model">assets_software</field>
+        <field name="arch" type="xml">
+            <form string="Software">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="computer_id"/>
+                        <field name="license_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View: Show only key fields -->
+    <record id="asset_software_list" model="ir.ui.view">
+        <field name="name">assets.software.list</field>
+        <field name="model">assets_software</field>
+        <field name="arch" type="xml">
+            <list string="Software">
+                <field name="name"/>
+                <field name="computer_id"/>
+                <field name="license_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!--Menu-->
+    <menuitem id="menu_assets_software_item" 
+        name="Software"
+        parent="menu_assets_software" 
+        action="asset_software_action"/>
+
+</odoo>

@@ -4,5 +4,6 @@
 <menuitem id="menu_assets_root" name="Asset Manager"/>
 <menuitem id="menu_assets_pc" name="PC" parent="menu_assets_root" />
 <menuitem id="menu_assets_financial" name="Financial" parent="menu_assets_root" />
+<menuitem id="menu_assets_software" name="Software" parent="menu_assets_root"/>
 
 </odoo>

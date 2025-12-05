@@ -1,3 +1,3 @@
-from . import computer
-from . import monitor
+from . import computer, monitor
 from .financial import finance_project
+from .software import license, software

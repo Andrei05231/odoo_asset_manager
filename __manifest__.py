@@ -1,5 +1,4 @@
 {
-
     'name':'Asset Manager',
     'version':'0.1',
     'category':'Administration',
@@ -11,6 +10,8 @@
         'views/computer_views.xml',
         'views/project_views.xml',
         'views/monitor_views.xml',
+        'views/software_views.xml',
+        'views/license_views.xml'
         ],
     'installable':True,
     'application':True,

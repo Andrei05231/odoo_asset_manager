@@ -7,7 +7,7 @@ class Computer(models.Model):
     is_used = fields.Boolean()
     inventoryNumber = fields.Char()
     serialNumber = fields.Char()
-    user = fields.Many2one('hr.employee', string="Assigned User")
+    user_id = fields.Many2one('hr.employee', string="Assigned User")
     details = fields.Text()
 
     currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id)

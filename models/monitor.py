@@ -12,7 +12,9 @@ class Monitor(models.Model):
     details = fields.Char()
     user_id = fields.Many2one('hr.employee',
                               string="Assigned User",
-                              related='computer_id.user')
+                              related='computer_id.user_id',
+                              store=True,
+                              readonly=True)
 
     currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id)
     price = fields.Monetary(string="Price", currency_field='currency_id')

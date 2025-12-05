@@ -1,4 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_assets_computer_all,access.assets.computer.all,model_assets_computer,,1,1,1,1
-access_assets_project_all,access.assets_project.all,model_assets_project,,1,1,1,1
+access_assets_project_all,access.assets.project.all,model_assets_project,,1,1,1,1
 access_assets_monitor_all,access.assets.monitor.all,model_assets_monitor,,1,1,1,1
+access_assets_software_all,access.assets.software.all,model_assets_software,,1,1,1,1
+access_assets_license_all,access.assets.license.all,model_assets_license,,1,1,1,1
