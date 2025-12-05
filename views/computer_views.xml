@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <odoo>
 
     <!-- Action -->
@@ -8,7 +7,6 @@
         <field name="res_model">assets_computer</field>
         <field name="view_mode">list,form</field>
     </record>
-
 
     <!-- FORM VIEW -->
     <record id="asset_computer_form" model="ir.ui.view">
@@ -21,7 +19,7 @@
 
                     <notebook>
 
-                        <!-- MAIN DATA -->
+                        <!-- GENERAL INFORMATION -->
                         <page string="General Information">
                             <group>
                                 <group>
@@ -31,21 +29,6 @@
                                     <field name="is_used"/>
                                     <field name="user_id"/>
                                 </group>
-
-                                <group>
-                                    <field name="price"/>
-                                    <field name="project_id"/>
-                                    <field name="company_id" readonly="1"/>
-                                </group>
-                            </group>
-
-                            <group string="Specifications">
-                                <field name="computer_type"/>
-                                <field name="model"/>
-                                <field name="cpu"/>
-                                <field name="gpu"/>
-                                <field name="memory"/>
-                                <field name="ip_address"/>
                             </group>
 
                             <group string="Details">
@@ -57,6 +40,26 @@
                             </group>
                         </page>
 
+                        <!-- SPECIFICATIONS -->
+                        <page string="Specifications">
+                            <group>
+                                <field name="computer_type"/>
+                                <field name="model"/>
+                                <field name="cpu"/>
+                                <field name="gpu"/>
+                                <field name="memory"/>
+                                <field name="ip_address"/>
+                            </group>
+                        </page>
+
+                        <!-- FINANCIAL -->
+                        <page string="Financial">
+                            <group>
+                                <field name="price"/>
+                                <field name="project_id"/>
+                                <field name="company_id" readonly="1"/>
+                            </group>
+                        </page>
 
                         <!-- HISTORY -->
                         <page string="History">
@@ -69,7 +72,6 @@
                              </group>
 
                             <field name="history_ids">
-
                                 <list>
                                     <field name="history_type"/>
                                     <field name="notes"/>
@@ -89,7 +91,6 @@
 
                         </page>
 
-
                     </notebook>
 
                 </sheet>
@@ -99,18 +100,16 @@
     </record>
 
     <record id="assets_history_action" model="ir.actions.act_window">
-    <field name="name">Asset History</field>
-    <field name="res_model">assets_history</field>
-    <field name="view_mode">list,form</field>
+        <field name="name">Asset History</field>
+        <field name="res_model">assets_history</field>
+        <field name="view_mode">list,form</field>
     </record>
-
 
     <!-- LIST VIEW -->
     <record id="asset_computer_list" model="ir.ui.view">
         <field name="name">assets.computer.list</field>
         <field name="model">assets_computer</field>
         <field name="arch" type="xml">
-
             <list string="Computers">
                 <field name="name"/>
                 <field name="user_id"/>
@@ -120,10 +119,8 @@
                 <field name="gpu"/>
                 <field name="price"/>
             </list>
-
         </field>
     </record>
-
 
     <!-- MENU -->
     <menuitem id="menu_assets_computer"
