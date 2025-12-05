@@ -52,7 +52,7 @@
     <!--Menu-->
     <menuitem id="menu_assets_monitor" 
         name="Monitors"
-        parent="menu_assets_root" 
+        parent="menu_assets_pc" 
         action="asset_monitor_action"/>
 
 </odoo>

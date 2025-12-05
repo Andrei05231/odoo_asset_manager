@@ -46,7 +46,7 @@
     <!-- MENU -->
     <menuitem id="menu_asset_project"
               name="Projects"
-              parent="menu_assets_root"
+              parent="menu_assets_financial"
               action="asset_project_action"/>
 
 </odoo>

@@ -33,6 +33,7 @@
                     <field name="gpu"/>
                     <field name="memory"/>
                     <field name="ip_address"/>
+                    <field name="monitor_ids" />
                 </group>
             </sheet>
         </form>
@@ -57,10 +58,10 @@
 </record>
 
 	<!--Menu-->
-	<menuitem id="menu_assets_root" name="Asset Manager"/>
+	
 	<menuitem id="menu_assets_computer" 
 		name="Computers"
-		parent="menu_assets_root" 
+		parent="menu_assets_pc" 
 		action="asset_computer_action"/>
 
 </odoo>

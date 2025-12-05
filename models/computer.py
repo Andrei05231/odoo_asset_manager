@@ -25,6 +25,7 @@ class Computer(models.Model):
     gpu = fields.Char()
     memory = fields.Char()
     ip_address = fields.Char()
+    monitor_ids = fields.One2many('assets_monitor','computer_id', string='Monitors', readonly=True)
 
 
 
