@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <!--Action-->
+    <record id="asset_history_action" model="ir.actions.act_window">
+        <field name="name">Asset History</field>
+        <field name="res_model">assets_history</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Form View: Show all fields -->
+    <record id="asset_history_form" model="ir.ui.view">
+        <field name="name">assets.history.form</field>
+        <field name="model">assets_history</field>
+        <field name="arch" type="xml">
+            <form string="Asset History">
+                <sheet>
+                    <group>
+                        <field name="history_type"/>
+                        <field name="asset"/>
+                        <field name="expense_id"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View: Show only key fields -->
+    <record id="asset_history_list" model="ir.ui.view">
+        <field name="name">assets.history.list</field>
+        <field name="model">assets_history</field>
+        <field name="arch" type="xml">
+            <list string="Asset History">
+                <field name="history_type"/>
+                <field name="asset"/>
+                <field name="expense_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!--Menu-->
+    <menuitem id="menu_assets_history" 
+        name="History"
+        parent="menu_assets_root" 
+        action="asset_history_action"/>
+
+</odoo>

@@ -11,7 +11,8 @@
         'views/project_views.xml',
         'views/monitor_views.xml',
         'views/software_views.xml',
-        'views/license_views.xml'
+        'views/license_views.xml',
+        'views/history_views.xml'
         ],
     'installable':True,
     'application':True,

@@ -34,6 +34,8 @@
                     <field name="memory"/>
                     <field name="ip_address"/>
                     <field name="monitor_ids" />
+
+
                 </group>
             </sheet>
         </form>
