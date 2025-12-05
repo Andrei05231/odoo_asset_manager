@@ -27,5 +27,33 @@ class Computer(models.Model):
     ip_address = fields.Char()
     monitor_ids = fields.One2many('assets_monitor','computer_id', string='Monitors', readonly=True)
 
+    history_ids = fields.One2many(
+        comodel_name='assets_history',
+        inverse_name='id',
+        compute='_compute_history_ids',
+        string="Last 5 History",
+        store=False
+    )
 
+    def _compute_history_ids(self):
+        for record in self:
+            histories = self.env['assets_history'].search([
+                ('asset', '=', f'assets_computer,{record.id}')
+            ], order='id desc', limit=5)
+
+            record.history_ids = histories
+
+    def action_create_history(self):
+        self.ensure_one()
+        return {
+            'name': 'New History',
+            'type': 'ir.actions.act_window',
+            'res_model': 'assets_history',
+            'view_mode': 'form',
+            'view_id': False,
+            'target': 'current',
+            'context': {
+                'default_asset': f'assets_computer,{self.id}'
+            }
+        }
 
