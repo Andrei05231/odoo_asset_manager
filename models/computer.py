@@ -8,6 +8,7 @@ class Computer(models.Model):
     inventoryNumber = fields.Char()
     serialNumber = fields.Char()
     user_id = fields.Many2one('hr.employee', string="Assigned User")
+    department_id = fields.Many2one('hr.department', string="Department", related='user_id.department_id', store=True, readonly=True)
     details = fields.Text()
 
     currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id)

@@ -28,6 +28,7 @@
                                     <field name="serialNumber"/>
                                     <field name="is_used"/>
                                     <field name="user_id"/>
+                                    <field name="department_id"/>
                                 </group>
                             </group>
 
