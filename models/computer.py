@@ -19,8 +19,12 @@ class Computer(models.Model):
                                 related='project_id.company_id',
                                 store = True,
                                 readonly = True)
-
-    computer_type = fields.Char()
+    computer_type = fields.Selection([
+                                    ('desktop', 'Desktop'),
+                                    ('notebook', 'Notebook'),
+                                    ('tower','Tower'),
+                                    ('mini', "Mini Tower")
+                                ],string="Type")
     model = fields.Char()
     cpu = fields.Char()
     gpu = fields.Char()
