@@ -1,6 +1,6 @@
 {
     'name':'Asset Manager',
-    'version':'0.1',
+    'version':'0.5',
     'category':'Administration',
     'description':' App used for mananging computers, printers, phones and other assets',
     'depends': ['base','hr'],
@@ -12,7 +12,9 @@
         'views/monitor_views.xml',
         'views/software_views.xml',
         'views/license_views.xml',
-        'views/history_views.xml'
+        'views/history_views.xml',
+        'views/printer_views.xml',
+        'views/other_views.xml',
         ],
     'installable':True,
     'application':True,

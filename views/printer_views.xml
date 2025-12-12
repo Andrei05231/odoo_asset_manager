@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+    <record id="view_assets_printer_list" model="ir.ui.view">
+        <field name="name">assets.printer.list</field>
+        <field name="model">assets_printer</field>
+        <field name="arch" type="xml">
+            <list string="Printers">
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="ip"/>
+                <field name="model"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="view_assets_printer_form" model="ir.ui.view">
+        <field name="name">assets.printer.form</field>
+        <field name="model">assets_printer</field>
+        <field name="arch" type="xml">
+            <form string="Printer">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="ip"/>
+                        <field name="model"/>
+                        <field name="inventory"/>
+                        <field name="serial"/>
+                        <field name="status"/>
+                        <field name="project_id"/>
+                        <field name="company_id" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_assets_printer" model="ir.actions.act_window">
+        <field name="name">Printers</field>
+        <field name="res_model">assets_printer</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_assets_printer"
+              name="Printers"
+              parent="menu_assets_devices"
+              action="action_assets_printer"/>
+
+</odoo>
