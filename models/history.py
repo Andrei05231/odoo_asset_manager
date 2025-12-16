@@ -13,7 +13,8 @@ class Hystory(models.Model):
     asset = fields.Reference(
         selection=[
             ('assets_computer',"Computer"),
-            ('assets_monitor',"Monitor")
+            ('assets_monitor',"Monitor"),
+            ('assets_printer',"Printer"),
         ],
         string='Related Asset'
     )
