@@ -1,4 +1,9 @@
-from odoo import models, fields
+from odoo import models, fields, api
+import logging
+
+from .utils.computer_helpers import _process_computer_update,_calculate_summary
+
+_logger = logging.getLogger(__name__)
 
 class Computer(models.Model):
     _name="assets_computer"
@@ -61,4 +66,70 @@ class Computer(models.Model):
                 'default_asset': f'assets_computer,{self.id}'
             }
         }
+    
+
+    @api.model
+    def batch_update(self, payload):
+
+        _logger.warning(
+              "BATCH_UPDATE ENTERED | user=%s uid=%s companies=%s",
+            self.env.user.login,
+            self.env.user.id,
+            self.env.companies.ids,
+        )
+        
+        """
+        Expected payload format:
+
+        {
+            "computers": [
+                {
+                    "serialNumber": "ABC123",
+                    "name": "PC-01",
+                    "cpu": "i7",
+                    "gpu": "RTX 3070",
+                    "memory": 32
+                }
+            ]
+        }
+        """
+
+        if not isinstance(payload, dict):
+            return {
+                'success': False,
+                'error': 'Payload must be a JSON object'
+            }
+
+        computers_data = payload.get('computers', [])
+
+        if not computers_data:
+            return {
+                'success': False,
+                'error': 'No computers provided'
+            }
+
+        Computer = self.env['assets_computer']
+        results = []
+
+        for computer_data in computers_data:
+            if not isinstance(computer_data, dict):
+                results.append({
+                    'status': 'error',
+                    'error': 'Invalid computer payload'
+                })
+                continue
+
+            result = _process_computer_update(
+                Computer,
+                computer_data,
+                _logger,
+            )
+            results.append(result)
+
+        return {
+            'success': True,
+            'results': results,
+            'summary': _calculate_summary(results)
+        }
+
 
