@@ -17,15 +17,25 @@ def _find_computer( Computer, serial_number, name):
                  return record, match_type
      return None, None
 
-def _extract_update_values( computer_data):
+def _extract_update_values( computer_data, creating):
      """
      Extract only allowed fields for update.
      """
-     updatable_fields = {
-         'cpu',
-         'gpu',
-         'memory',
-     }
+     if not creating:
+        updatable_fields = {
+            'cpu',
+            'gpu',
+            'memory',
+        }
+     else:
+        updatable_fields = {
+            'serialNumber',
+            'name',
+            'cpu',
+            'gpu',
+            'memory',
+        }
+
      vals = {}
      for field, value in computer_data.items():
          if field in updatable_fields:
@@ -43,9 +53,10 @@ def _process_computer_update( Computer, computer_data, logger):
          serial_number,
          name
      )
-     update_vals = _extract_update_values(computer_data)
+     
      if not computer:
          try:
+             update_vals = _extract_update_values(computer_data, True)
              Computer.create(update_vals)
              return {
              'serialNumber': serial_number,
@@ -60,7 +71,8 @@ def _process_computer_update( Computer, computer_data, logger):
              'name': name,
              'status': 'not_found'
          }
-         
+    
+     update_vals = _extract_update_values(computer_data, False)
      
      if not update_vals:
          return {
