@@ -16,6 +16,7 @@ def _find_computer( Computer, serial_number, name):
              if record:
                  return record, match_type
      return None, None
+
 def _extract_update_values( computer_data):
      """
      Extract only allowed fields for update.
@@ -30,6 +31,7 @@ def _extract_update_values( computer_data):
          if field in updatable_fields:
              vals[field] = value
      return vals
+
 def _process_computer_update( Computer, computer_data, logger):
      """
      Update a single computer record.
@@ -41,13 +43,25 @@ def _process_computer_update( Computer, computer_data, logger):
          serial_number,
          name
      )
+     update_vals = _extract_update_values(computer_data)
      if not computer:
-         return {
+         try:
+             Computer.create(update_vals)
+             return {
+             'serialNumber': serial_number,
+             'name': name,
+             'status': 'Created'
+         }
+
+         except Exception as e :
+             logger.error(f"Can t create computer : {e}")
+             return {
              'serialNumber': serial_number,
              'name': name,
              'status': 'not_found'
          }
-     update_vals = _extract_update_values(computer_data)
+         
+     
      if not update_vals:
          return {
              'serialNumber': serial_number,
@@ -75,6 +89,7 @@ def _process_computer_update( Computer, computer_data, logger):
              'status': 'error',
              'error': str(e)
          }
+     
 def _calculate_summary( results):
      """
      Summarize batch results.
