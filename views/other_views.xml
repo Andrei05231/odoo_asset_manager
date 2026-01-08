@@ -30,6 +30,7 @@
                         <field name="project_id"/>
                         <field name="company_id" readonly="1"/>
                         <field name="details"/>
+                        <field name="asset_status" invisible="not project_id"/>
                     </group>
                 </sheet>
             </form>

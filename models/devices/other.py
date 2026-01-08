@@ -13,3 +13,10 @@ class Other(models.Model):
                                  readonly=True,
                                  string="Company")
     details = fields.Text(string="Description")
+
+    asset_status = fields.Selection([
+        ('odered',"Ordered"),
+        ('arrived',"Arrived"),
+        ('active', "Active")
+    ],
+        string="Asset Status")

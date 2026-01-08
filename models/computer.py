@@ -45,6 +45,8 @@ class Computer(models.Model):
         store=False
     )
 
+    manual_complete = fields.Boolean(string="Complete Data")
+
     def _compute_history_ids(self):
         for record in self:
             histories = self.env['assets_history'].search([
