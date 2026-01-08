@@ -72,14 +72,6 @@ class Computer(models.Model):
 
     @api.model
     def batch_update(self, payload):
-
-        _logger.warning(
-              "BATCH_UPDATE ENTERED | user=%s uid=%s companies=%s",
-            self.env.user.login,
-            self.env.user.id,
-            self.env.companies.ids,
-        )
-        
         """
         Expected payload format:
 
