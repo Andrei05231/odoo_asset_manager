@@ -116,6 +116,8 @@
                 <field name="user_id"/>
                 <field name="computer_type"/>
                 <field name="model"/>
+                <field name="inventoryNumber" />
+                <field name="serialNumber"/>
                 <field name="cpu"/>
                 <field name="gpu"/>
                 <field name="price"/>
