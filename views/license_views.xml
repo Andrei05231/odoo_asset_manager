@@ -20,6 +20,9 @@
                         <field name="name"/>
                         <field name="software_id"/>
                         <field name="license_type"/>
+                        <field name="licence_key" invisible="license_type != 'key'" />
+                        <field name="licence_linked_acount" invisible="license_type != 'account'" />
+                        <field name="licence_server" invisible="license_type != 'server'" />
                         <field name="inventory_number"/>
                         <field name="notes"/>
                         <field name="computer_id"/>

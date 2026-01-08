@@ -5,4 +5,4 @@ class Software(models.Model):
 
     name = fields.Char()
     computer_id = fields.Many2many("assets_computer", string="Installed On")
-    license_id = fields.Many2one("assets_license", string="Licenses")
+    license_id = fields.One2many("assets_license", 'software_id',string="Licenses")

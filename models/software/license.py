@@ -11,6 +11,9 @@ class License(models.Model):
             ('server', "License Server"),
             ('other',"Other"),
         ],string="Type")
+    licence_linked_acount = fields.Char()
+    licence_server = fields.Char()
+    licence_key= fields.Char()
     inventory_number = fields.Char()
     notes = fields.Text(string="Notes(optional)")
     computer_id = fields.Many2many("assets_computer", string="Computer")
