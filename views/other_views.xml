@@ -21,8 +21,10 @@
         <field name="name">assets.other.form</field>
         <field name="model">assets_other</field>
         <field name="arch" type="xml">
-            <form string="Other Asset">
+           <form string="Other Asset">
                 <sheet>
+
+                    <!-- NORMAL FIELDS (labels work) -->
                     <group>
                         <field name="name"/>
                         <field name="inventory"/>
@@ -32,8 +34,23 @@
                         <field name="details"/>
                         <field name="asset_status" invisible="not project_id"/>
                     </group>
+
+                    <!-- INLINE FIELD + BUTTON -->
+                    <group>
+                        <label for="inventory_code"/>
+                        <div class="o_row">
+                            <field name="inventory_code" readonly="1" class="oe_inline"/>
+                            <button name="action_generate_inventory_number"
+                                    type="object"
+                                    string="Generate"
+                                    class="btn-primary oe_inline"/>
+                        </div>
+                    </group>
+
                 </sheet>
             </form>
+
+
         </field>
     </record>
 
