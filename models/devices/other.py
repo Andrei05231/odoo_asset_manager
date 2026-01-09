@@ -1,5 +1,5 @@
 from odoo import models, fields
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError  # type: ignore
 
 class Other(models.Model):
     _name = "assets_other"
