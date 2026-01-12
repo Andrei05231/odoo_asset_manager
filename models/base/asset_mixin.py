@@ -1,12 +1,12 @@
 from odoo import models, fields
 
-class AssetMixin(models.Model):
+class AssetMixin(models.AbstractModel):
     _name="assets_mixin"
     _inherit=['assets_inventory_mixin']
     
     name = fields.Char()
 
-    note = fields.Text(string='Notes')
+    details = fields.Text(string='Notes')
 
     inventory_code = fields.Char(
         string="Inventory Code",
