@@ -41,6 +41,7 @@
                         <div class="o_row">
                             <field name="inventory_code" readonly="1" class="oe_inline"/>
                             <button name="action_generate_inventory_number"
+                                    invisible="inventory_code "
                                     type="object"
                                     string="Generate"
                                     class="btn-primary oe_inline"/>
