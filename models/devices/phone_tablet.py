@@ -1,7 +1,8 @@
 from odoo import models, fields
 
 class AssetPhone(models.Model):
-    __name__="assets.phone"
+    _name="assets_phone"
+    _inherit = ['assets_inventory_mixin']
 
     name = fields.Char()
     model = fields.Char()
@@ -9,8 +10,13 @@ class AssetPhone(models.Model):
     phone_number = fields.Char()
     details = fields.Text()
 
-    inventory = fields.Char()
     serial = fields.Char()
+    inventory_code = fields.Char(
+        string="Inventory Code",
+        related='inventory_number_id.code',
+        readonly=True,
+        store=True
+    )
 
     user_id = fields.Many2one('hr.employee', string="Assigned User")
     department_id = fields.Many2one('hr.department', string="Department", related='user_id.department_id', store=True, readonly=True)
@@ -26,4 +32,11 @@ class AssetPhone(models.Model):
         ('phone', "Phone"),
         ('tables', "Tablet")
     ], string = "Type")
+
+    asset_status = fields.Selection([
+        ('odered',"Ordered"),
+        ('arrived',"Arrived"),
+        ('active', "Active")
+    ],
+        string="Asset Status")
 
