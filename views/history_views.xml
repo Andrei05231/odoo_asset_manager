@@ -43,7 +43,7 @@
     <!--Menu-->
     <menuitem id="menu_assets_history" 
         name="History"
-        parent="menu_assets_root" 
+        parent="menu_assets_config" 
         action="asset_history_action"/>
 
 </odoo>
