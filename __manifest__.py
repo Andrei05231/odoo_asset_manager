@@ -16,7 +16,8 @@
         'views/printer_views.xml',
         'views/other_views.xml',
         'views/inventory_views.xml',
-        'views/phone_tablet_views.xml'
+        'views/phone_tablet_views.xml',
+        'views/tag_views.xml'
         ],
     'installable':True,
     'application':True,

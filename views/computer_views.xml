@@ -27,6 +27,7 @@
                                     <field name="inventoryNumber"/>
                                     <field name="serialNumber"/>
                                     <field name="is_used"/>
+                                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" />
                                     <field name="user_id"/>
                                     <field name="department_id"/>
                                 </group>
@@ -112,6 +113,7 @@
         <field name="model">assets_computer</field>
         <field name="arch" type="xml">
             <list string="Computers">
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}" />
                 <field name="name"/>
                 <field name="user_id"/>
                 <field name="computer_type"/>

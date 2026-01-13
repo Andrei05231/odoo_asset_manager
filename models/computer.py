@@ -16,6 +16,8 @@ class Computer(models.Model):
     department_id = fields.Many2one('hr.department', string="Department", related='user_id.department_id', store=True, readonly=True)
     details = fields.Text()
 
+    tag_ids = fields.Many2many('assets_tag', string="Tags")
+
     currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id)
     price = fields.Monetary(string="Price", currency_field='currency_id')
     project_id = fields.Many2one('assets_project', string="Project")
