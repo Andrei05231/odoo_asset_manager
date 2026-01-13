@@ -24,7 +24,7 @@ class InventoryNumberMixin(models.AbstractModel):
                 raise UserError('Please set the project (company) before generating an inventory number.')
             
             inventory_number = self.env['asset.inventory.number'].generate_next(asset.company_id)
-
+            inventory_number.asset_ref = f'{asset._name},{asset.id}'
             asset.inventory_number_id = inventory_number.id
 
 

@@ -12,6 +12,17 @@ class AssetInventoryNumber(models.Model):
         index=True
     )
 
+    asset_ref = fields.Reference(
+        selection=[
+            ('assets_phone',"Phone / Tablet"),
+            ('assets_other',"Other"),
+            ('assets_computer',"Computer"),
+            ('assets_monitor',"Monitor")
+        ],
+        string = "Asset",
+        readonly = True
+    )
+
     number = fields.Integer(
         string="Number",
         required=True
