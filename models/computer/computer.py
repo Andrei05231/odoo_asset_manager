@@ -127,5 +127,3 @@ class Computer(models.Model):
             'results': results,
             'summary': _calculate_summary(results)
         }
-
-
