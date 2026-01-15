@@ -10,3 +10,4 @@ access_assets_other_all,access.assets.other.all,model_assets_other,,1,1,1,1
 access_asset_inventory_number_all,access.asset.inventory.number.all,model_asset_inventory_number,,1,1,1,1
 access_assets_phone_all,access.assets.phone.all,model_assets_phone,,1,1,1,1
 access_assets_tag_all,access.assets.tag.all,model_assets_tag,,1,1,1,1
+access_assets_component_score,access.assets.component.score,model_assets_component_score,,1,1,1,1

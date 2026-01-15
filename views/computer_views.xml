@@ -48,9 +48,9 @@
                                 <field name="computer_type"/>
                                 <field name="model"/>
                                 <field name="cpu"/>
-                                <field name="cpu_performance"/>
+                                <field name="cpu_score"/>
                                 <field name="gpu"/>
-                                <field name="gpu_performance" />
+                                <field name="gpu_score" />
                                 <field name="memory"/>
                                 <field name="ip_address"/>
                                 <field name="performance_score"/>

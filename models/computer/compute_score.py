@@ -1,6 +1,6 @@
 from odoo import fields, models
 
-class Computer(models.AbstarctModels):
+class Computer(models.AbstractModel):
     _inherit = "assets_computer"
 
     cpu_score = fields.Float()
@@ -9,8 +9,7 @@ class Computer(models.AbstarctModels):
     performance_score = fields.Float()
 
     def action_compute_score(self):
-        cpuScore = self.env['assets_cpu_score']
-        gpuScore = self.env['assets_gpu_score']
+        score = self.env["assets_component_score"]
 
         main_score = 0.0
 
@@ -22,16 +21,18 @@ class Computer(models.AbstarctModels):
             gpu_score = 0.0
 
             if record.cpu:
-                cpu = cpuScore.search(
-                    [('name','=',record.cpu)],
+                cpu = score.search(
+                    [   ('component_type','=','cpu'),
+                        ('name','=',record.cpu)],
                     limit = 1
                 )
                 cpu_score = cpu.score if cpu else 0
             else : cpu_score = 0
 
             if record.gpu:
-                gpu = gpuScore.search(
-                    [('name','=', record.gpu)],
+                gpu = score.search(
+                    [   ('component_type','=','gpu'),
+                        ('name','=', record.gpu)],
                     limit = 1
                 )
                 gpu_score = gpu.score if gpu else 0
@@ -48,7 +49,7 @@ class Computer(models.AbstarctModels):
 
 
     
-    def normalize(number, max_val):
+    def normalize(self, number, max_val):
         return (number /max_val) *100
 
             
