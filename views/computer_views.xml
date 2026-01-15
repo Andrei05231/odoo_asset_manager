@@ -48,9 +48,16 @@
                                 <field name="computer_type"/>
                                 <field name="model"/>
                                 <field name="cpu"/>
+                                <field name="cpu_performance"/>
                                 <field name="gpu"/>
+                                <field name="gpu_performance" />
                                 <field name="memory"/>
                                 <field name="ip_address"/>
+                                <field name="performance_score"/>
+                                <button name="action_compute_score"
+                                    type="object"
+                                    string="Get Score"
+                                    class="btn-primary oe-inline"/>
                             </group>
                         </page>
 
@@ -123,6 +130,7 @@
                 <field name="cpu"/>
                 <field name="gpu"/>
                 <field name="price"/>
+                
             </list>
         </field>
     </record>

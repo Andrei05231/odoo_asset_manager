@@ -1,7 +1,8 @@
 from odoo import models, fields, api
 import logging
 
-from .utils.computer_helpers import _process_computer_update,_calculate_summary
+from ..utils.computer_helpers import _process_computer_update,_calculate_summary
+
 
 _logger = logging.getLogger(__name__)
 
