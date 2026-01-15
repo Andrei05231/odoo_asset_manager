@@ -45,21 +45,31 @@
                         <!-- SPECIFICATIONS -->
                         <page string="Specifications">
                             <group>
-                                <field name="computer_type"/>
-                                <field name="model"/>
-                                <field name="cpu"/>
-                                <field name="cpu_score"/>
-                                <field name="gpu"/>
-                                <field name="gpu_score" />
-                                <field name="memory"/>
-                                <field name="ip_address"/>
-                                <field name="performance_score"/>
-                                <button name="action_compute_score"
-                                    type="object"
-                                    string="Get Score"
-                                    class="btn-primary oe-inline"/>
+                              
+                                <group>
+                                    <field name="computer_type"/>
+                                    <field name="model"/>
+                                    <field name="cpu"/>
+                                    <field name="gpu"/>
+                                    <field name="memory"/>
+                                    <field name="ip_address"/>
+                                </group>
+
+                                <group string="Scores">
+                                    <field name="cpu_score" readonly="1"/>
+                                    <field name="gpu_score" readonly="1"/>
+                                    <field name="performance_score" readonly="1"/>
+
+                                    <button
+                                        name="action_compute_score"
+                                        type="object"
+                                        string="Get Score"
+                                        class="btn-primary"
+                                    />
+                                </group>
                             </group>
                         </page>
+
 
                         <!-- FINANCIAL -->
                         <page string="Financial">
