@@ -1,4 +1,5 @@
 from odoo import fields, models
+from odoo.exceptions import ValidationError
 
 class Computer(models.AbstractModel):
     _inherit = "assets_computer"
@@ -20,32 +21,36 @@ class Computer(models.AbstractModel):
             cpu_score = 0.0
             gpu_score = 0.0
 
-            if record.cpu:
-                cpu = score.search(
-                    [   ('component_type','=','cpu'),
-                        ('name','=',record.cpu)],
-                    limit = 1
-                )
-                cpu_score = cpu.score if cpu else 0
-            else : cpu_score = 0
+            if not record.cpu:
+                raise ValidationError("Record doesn t contain a CPU")
+            cpu = score.search(
+                [   ('component_type','=','cpu'),
+                    ('name','=',record.cpu)],
+                limit = 1
+            )
+            if not cpu: 
+                raise ValidationError(f'No score found for CPU: %s'%record.cpu)
+            cpu_score = cpu.score 
 
-            if record.gpu:
-                gpu = score.search(
-                    [   ('component_type','=','gpu'),
-                        ('name','=', record.gpu)],
-                    limit = 1
-                )
-                gpu_score = gpu.score if gpu else 0
-            else: gpu_score = 0
+            if not record.gpu:
+                raise ValidationError('Record doesn t contain a GPU')
+            gpu = score.search(
+                [   ('component_type','=','gpu'),
+                    ('name','=', record.gpu)],
+                limit = 1
+            )
+            if not gpu:
+                raise ValidationError(f'No score found for GPU: %s'%record.gpu)
+            gpu_score = gpu.score
 
-        gpu = self.normalize(gpu_score, gpu_max)
-        cpu = self.normalize(cpu_score, cpu_max)
+            gpu = self.normalize(gpu_score, gpu_max)
+            cpu = self.normalize(cpu_score, cpu_max)
 
-        main_score = (0.6*gpu)+(0.4*cpu)
+            main_score = (0.6*gpu)+(0.4*cpu)
 
-        record.cpu_score = cpu
-        record.gpu_score = gpu
-        record.performance_score = main_score
+            record.cpu_score = cpu
+            record.gpu_score = gpu
+            record.performance_score = main_score
 
 
     
