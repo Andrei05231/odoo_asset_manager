@@ -1,7 +1,7 @@
 from odoo import models, fields, api
 import logging
 
-from ..utils.computer_helpers import _process_computer_update,_calculate_summary
+from ..utils.computer_helpers import _process_computer_update,_calculate_summary, _process_monitor_data
 
 
 _logger = logging.getLogger(__name__)
@@ -106,6 +106,7 @@ class Computer(models.Model):
             }
 
         Computer = self.env['assets_computer']
+        Monitor = self.env['assets_monitor']
         results = []
 
         for computer_data in computers_data:
@@ -121,10 +122,14 @@ class Computer(models.Model):
                 computer_data,
                 _logger,
             )
+
+            monitor_results = _process_monitor_data(Monitor, Computer, computer_data)
             results.append(result)
 
         return {
             'success': True,
             'results': results,
-            'summary': _calculate_summary(results)
+            'computer_summary': _calculate_summary(results),
+            'monitor_summary': monitor_results
+            
         }

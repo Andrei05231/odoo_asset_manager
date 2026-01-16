@@ -117,3 +117,51 @@ def _calculate_summary( results):
          'not_found': status_counts.get('not_found', 0),
          'errors': status_counts.get('error', 0),
      }
+
+def _process_monitor_data(Monitor, Computer, computer_data):
+    monitors_data = computer_data.get('monitors') or []
+    monitors_found = 0
+    monitors_created = 0
+
+    if not monitors_data:
+        return {'status': 'No montitor data Found'}
+
+    computer, match_field = _find_computer(
+        Computer,
+        computer_data.get('serial_number'),
+        computer_data.get('name'),
+    )
+
+    if not computer:
+        return {'status':'Linked computer not found'}
+
+    existing_serials = set(
+        Monitor.search([
+            ('computer_id', '=', computer.id)
+        ]).mapped('serial_number')
+    )
+
+    for monitor in monitors_data:
+        serial = monitor.get('serial')
+        if not serial :
+            return {
+                'status':'Missing monitor serial code'
+            }
+
+        if serial in existing_serials:
+            monitors_found+=1
+            continue
+
+        Monitor.create({
+            'name': monitor.get('name'),
+            'serial_number': serial,
+            'computer_id': computer.id,
+        })
+        monitors_created+=1
+
+    return {
+        'status': 'completed',
+        'already_found': monitors_found,
+        'created':monitors_created
+    }
+
