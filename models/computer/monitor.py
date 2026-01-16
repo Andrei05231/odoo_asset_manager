@@ -6,7 +6,7 @@ class Monitor(models.Model):
     name = fields.Char()
     is_used = fields.Boolean()
     computer_id = fields.Many2one("assets_computer", string="Computer")
-    serial_numebr = fields.Char()
+    serial_number = fields.Char()
     inventory_number = fields.Char()
     model = fields.Char()
     details = fields.Char()

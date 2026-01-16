@@ -20,7 +20,7 @@
                         <field name="name"/>
                         <field name="is_used"/>
                         <field name="computer_id"/>
-                        <field name="serial_numebr"/>
+                        <field name="serial_number"/>
                         <field name="inventory_number"/>
                         <field name="model"/>
                         <field name="details"/>
