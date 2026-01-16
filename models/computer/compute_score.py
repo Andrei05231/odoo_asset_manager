@@ -13,58 +13,94 @@ class Computer(models.AbstractModel):
     performance_score = fields.Float()
 
     def action_compute_score(self):
+        
         score = self.env["assets_component_score"]
 
         main_score = 0.0
 
         gpu_max = 7000.0
-        cpu_max = 700.0
+        cpu_max = 600.0
 
+        errors = []
         for record in self:
-            cpu_score = 0.0
-            gpu_score = 0.0
+            try:
+                cpu_score = 0.0
+                gpu_score = 0.0
 
-            if not record.cpu or not record.gpu or not record.memory:
-                raise ValidationError("CPU, GPU and Memory required to calculate score.")
-            
-            # computer might have multiple gpus separated by ','
-            if ','in record.gpu:
-                processed_gpu = self.get_descrete_gpu(record.gpu)
-            else:
-                processed_gpu = record.gpu
+                if not record.cpu or not record.gpu or not record.memory:
+                    raise Exception("CPU, GPU and Memory required to calculate score.")
+                
+                # computer might have multiple gpus separated by ','
+                if ','in record.gpu:
+                    processed_gpu = self.get_descrete_gpu(record.gpu)
+                else:
+                    processed_gpu = record.gpu
 
-            processed_cpu = self.process_cpu_name(record.cpu)
+                processed_cpu = self.process_cpu_name(record.cpu)
 
-            cpu = score.search(
-                [   ('component_type','=','cpu'),
-                    ('name','=',processed_cpu)],
-                limit = 1
-            )
-            gpu = score.search(
-                [   ('component_type','=','gpu'),
-                    ('name','=', processed_gpu)],
-                limit = 1
-            )
+                cpu = score.search(
+                    [   ('component_type','=','cpu'),
+                        ('name','=',processed_cpu)],
+                    limit = 1
+                )
+                gpu = score.search(
+                    [   ('component_type','=','gpu'),
+                        ('name','=', processed_gpu)],
+                    limit = 1
+                )
 
-            if not cpu: 
-                raise ValidationError(f'No score found for CPU: %s'%processed_cpu)            
-            if not gpu:
-                raise ValidationError(f'No score found for GPU: %s'%processed_gpu)
-            
-            cpu_score = cpu.score if cpu.score <1000.0 else 1000.0
-            gpu_score = gpu.score
-            ram = self.process_ram_score(record.memory)
+                if not cpu: 
+                    raise Exception(f'No score found for CPU: %s'%processed_cpu)            
+                if not gpu:
+                    raise Exception(f'No score found for GPU: %s'%processed_gpu)
+                
+                cpu_score = cpu.score
+                gpu_score = gpu.score
+                ram = self.process_ram_score(record.memory)
 
-            gpu = self.normalize_score(gpu_score, gpu_max)
-            cpu = self.normalize_score(cpu_score, cpu_max)
-            ram = self.process_ram_score(record.memory)
+                gpu = self.normalize_score(gpu_score, gpu_max)
+                cpu = self.normalize_score(cpu_score, cpu_max)
+                ram = self.process_ram_score(record.memory)
 
-            main_score = (0.63*gpu)+(0.35*cpu)+(0.02*ram)
+                main_score = (0.63*gpu)+(0.35*cpu)+(0.02*ram)
 
-            record.cpu_score = cpu
-            record.gpu_score = gpu
-            record.ram_score = ram
-            record.performance_score = main_score
+                record.write({
+                    'cpu_score': cpu,
+                    'gpu_score': gpu,
+                    'ram_score': ram,
+                    'performance_score': (
+                        0.63 * gpu +
+                        0.35 * cpu +
+                        0.02 * main_score
+                    ),
+                })
+            except Exception as e:
+                errors.append(
+                    f'{record.display_name},  \n'
+                )
+                continue
+
+        if errors:
+            return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Some computers were skipped',
+                'message': '\n'.join(errors),
+                'type': 'warning',
+                'sticky': True,
+            }
+}
+        return {
+        'type': 'ir.actions.client',
+        'tag': 'display_notification',
+        'params': {
+            'title': 'Success',
+            'message': 'All selected computers were successfully scored.',
+            'type': 'success',
+            'sticky': False,
+        }
+    }
 
     
     def normalize_score(self, number, max_val):

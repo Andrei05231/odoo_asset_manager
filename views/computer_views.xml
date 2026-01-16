@@ -152,9 +152,10 @@
         <field name="model_id" ref="model_assets_computer"/>
         <field name="binding_model_id" ref="model_assets_computer"/>
         <field name="state">code</field>
-        <field name="code">
-            records.action_compute_score()
-        </field>
+        <field name="code"><![CDATA[
+        action = records.action_compute_score()
+action
+        ]]></field>
     </record>
 
 
