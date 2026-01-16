@@ -58,6 +58,7 @@
                                 <group string="Scores">
                                     <field name="cpu_score" readonly="1"/>
                                     <field name="gpu_score" readonly="1"/>
+                                    <field name="ram_score" readonly="1"/>
                                     <field name="performance_score" readonly="1"/>
 
                                     <button
@@ -139,6 +140,7 @@
                 <field name="serialNumber"/>
                 <field name="cpu"/>
                 <field name="gpu"/>
+                <field name="performance_score"/>
                 <field name="price"/>
                 
             </list>
