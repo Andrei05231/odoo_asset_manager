@@ -1,7 +1,8 @@
 from odoo import fields, models
 
 class ComputerCategory(models.Model):
-    _name = "assets_computer_category"
+    _name = "assets_score_category"
+    _description = "category that will be used to alter the computer score"
 
     name = fields.Char()
     

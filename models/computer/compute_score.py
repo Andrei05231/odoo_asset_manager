@@ -10,6 +10,15 @@ class Computer(models.AbstractModel):
     gpu_score = fields.Float()
     ram_score = fields.Float()
 
+    category_id = fields.Many2one('assets_score_category',
+                                  string="Category")
+    cpu_weight = fields.Float(related='category_id.cpu_weight',)
+    gpu_weight = fields.Float(related='category_id.gpu_weight')
+    ram_weight = fields.Float(related="category_id.ram_weight")
+    
+    max_cpu_score = fields.Float(related="category_id.max_cpu_score")
+    max_gpu_score = fields.Float(related = 'category_id.max_gpu_score')
+
     performance_score = fields.Float()
 
     def action_compute_score(self):
@@ -18,12 +27,13 @@ class Computer(models.AbstractModel):
 
         main_score = 0.0
 
-        gpu_max = 7000.0
-        cpu_max = 600.0
-
         errors = []
         for record in self:
             try:
+                gpu_max = record.max_gpu_score
+                cpu_max = record.max_cpu_score
+
+
                 cpu_score = 0.0
                 gpu_score = 0.0
 
@@ -62,21 +72,19 @@ class Computer(models.AbstractModel):
                 cpu = self.normalize_score(cpu_score, cpu_max)
                 ram = self.process_ram_score(record.memory)
 
-                main_score = (0.63*gpu)+(0.35*cpu)+(0.02*ram)
+                main_score =( (record.gpu_weight/100*gpu)+
+                    (record.cpu_weight/100*cpu)+
+                    (record.ram_weight/100*ram))
 
                 record.write({
                     'cpu_score': cpu,
                     'gpu_score': gpu,
                     'ram_score': ram,
-                    'performance_score': (
-                        0.63 * gpu +
-                        0.35 * cpu +
-                        0.02 * main_score
-                    ),
+                    'performance_score': main_score,
                 })
             except Exception as e:
                 errors.append(
-                    f'{record.display_name},  \n'
+                    f'{e},  \n'
                 )
                 continue
 
@@ -85,7 +93,7 @@ class Computer(models.AbstractModel):
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                'title': 'Some computers were skipped',
+                'title': f'Some computers were skipped   ---   {errors}',
                 'message': '\n'.join(errors),
                 'type': 'warning',
                 'sticky': True,
