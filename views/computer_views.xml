@@ -29,6 +29,7 @@
                                     <field name="is_used"/>
                                     <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" />
                                     <field name="user_id"/>
+                                    <field name="category_id" />
                                     <field name="department_id"/>
                                 </group>
                             </group>

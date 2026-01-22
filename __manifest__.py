@@ -18,7 +18,8 @@
         'views/inventory_views.xml',
         'views/phone_tablet_views.xml',
         'views/tag_views.xml',
-        'views/score_views.xml'
+        'views/score_views.xml',
+        'views/computer_category_views.xml'
         ],
     'installable':True,
     'application':True,
