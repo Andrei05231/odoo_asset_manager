@@ -26,6 +26,7 @@ def _extract_update_values( computer_data, creating):
             'cpu',
             'gpu',
             'memory',
+            'name'
         }
      else:
         updatable_fields = {
@@ -118,13 +119,18 @@ def _calculate_summary( results):
          'errors': status_counts.get('error', 0),
      }
 
-def _process_monitor_data(Monitor, Computer, computer_data):
+def _process_monitor_data(Monitor, Computer, computer_data, logger):
     monitors_data = computer_data.get('monitors') or []
     monitors_found = 0
     monitors_created = 0
+    monitors_relinked = 0
 
     if not monitors_data:
-        return {'status': 'No montitor data Found'}
+        logger.info(
+            "No monitor data found for computer %s",
+            computer_data.get('serial_number') or computer_data.get('name')
+        )
+        return {'status': 'No monitor data found'}
 
     computer, match_field = _find_computer(
         Computer,
@@ -133,35 +139,91 @@ def _process_monitor_data(Monitor, Computer, computer_data):
     )
 
     if not computer:
-        return {'status':'Linked computer not found'}
+        logger.warning(
+            "Cannot link monitors: computer not found (serial=%s, name=%s)",
+            computer_data.get('serial_number'),
+            computer_data.get('name'),
+        )
+        return {'status': 'Linked computer not found'}
 
-    existing_serials = set(
-        Monitor.search([
-            ('computer_id', '=', computer.id)
-        ]).mapped('serial_number')
+    logger.debug(
+        "Processing %s monitors for computer ID %s",
+        len(monitors_data),
+        computer.id
     )
 
     for monitor in monitors_data:
         serial = monitor.get('serial')
-        if not serial :
-            return {
-                'status':'Missing monitor serial code'
-            }
 
-        if serial in existing_serials:
-            monitors_found+=1
+        if not serial:
+            logger.warning(
+                "Skipping monitor with missing serial for computer ID %s",
+                computer.id
+            )
             continue
 
-        Monitor.create({
-            'name': monitor.get('name'),
-            'serial_number': serial,
-            'computer_id': computer.id,
-        })
-        monitors_created+=1
+        try:
+            existing_monitor = Monitor.search(
+                [('serial_number', '=', serial)],
+                limit=1
+            )
+
+            if existing_monitor:
+                if existing_monitor.computer_id.id != computer.id:
+                    old_computer = existing_monitor.computer_id.id
+                    existing_monitor.write({
+                        'computer_id': computer.id
+                    })
+                    monitors_relinked += 1
+
+                    logger.info(
+                        "Relinked monitor %s from computer %s → %s",
+                        serial,
+                        old_computer,
+                        computer.id
+                    )
+                else:
+                    monitors_found += 1
+                    logger.debug(
+                        "Monitor %s already linked to computer %s",
+                        serial,
+                        computer.id
+                    )
+                continue
+
+            Monitor.create({
+                'name': monitor.get('name'),
+                'serial_number': serial,
+                'computer_id': computer.id,
+            })
+            monitors_created += 1
+
+            logger.info(
+                "Created new monitor %s linked to computer %s",
+                serial,
+                computer.id
+            )
+
+        except Exception:
+            logger.exception(
+                "Error processing monitor %s for computer %s",
+                serial,
+                computer.id
+            )
+
+    logger.info(
+        "Monitor sync completed for computer %s "
+        "(found=%s, relinked=%s, created=%s)",
+        computer.id,
+        monitors_found,
+        monitors_relinked,
+        monitors_created
+    )
 
     return {
         'status': 'completed',
-        'already_found': monitors_found,
-        'created':monitors_created
+        'already_linked': monitors_found,
+        'relinked': monitors_relinked,
+        'created': monitors_created,
     }
 

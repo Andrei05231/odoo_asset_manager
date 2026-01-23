@@ -123,7 +123,7 @@ class Computer(models.Model):
                 _logger,
             )
 
-            monitor_results = _process_monitor_data(Monitor, Computer, computer_data)
+            monitor_results = _process_monitor_data(Monitor, Computer, computer_data, _logger)
             results.append(result)
 
         return {
