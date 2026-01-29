@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- List View -->
+    <record id="view_assets_car_list" model="ir.ui.view">
+        <field name="name">assets.car.list</field>
+        <field name="model">assets.car</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="license_plate"/>
+                <field name="driver"/>
+                <field name="rca_expire"/>
+                <field name="itp_expire"/>
+                <field name="rovinieta_expire"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_assets_car_form" model="ir.ui.view">
+        <field name="name">assets.car.form</field>
+        <field name="model">assets.car</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="license_plate"/>
+                        <field name="driver"/>
+                    </group>
+
+                    <group string="Informatii">
+                        <field name="rca_expire"/>
+                        <field name="itp_expire"/>
+                        <field name="rovinieta_expire"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_assets_car" model="ir.actions.act_window">
+        <field name="name">Cars</field>
+        <field name="res_model">assets.car</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_assets_car"
+              name="Company Cars"
+              parent="menu_assets_root"
+              action="action_assets_car"/>
+
+</odoo>
