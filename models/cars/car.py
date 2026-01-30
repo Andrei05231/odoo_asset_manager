@@ -16,8 +16,8 @@ class CarAsset(models.Model):
     casco_expire = fields.Date(string="Data expirare Casco", tracking=True)
     revizie_expire = fields.Date(string="Data expirare Revizie Tehnica", tracking=True)
 
-    casco = fields.boolean(string="Casco")
-    leasing = fields.boolean(string="Leasing")
+    has_casco = fields.Boolean(string="Casco")
+    has_leasing = fields.Boolean(string="Leasing")
 
     def create(self, vals):
         record = super().create(vals)

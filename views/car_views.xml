@@ -28,12 +28,18 @@
                         <field name="name"/>
                         <field name="license_plate"/>
                         <field name="driver"/>
+                        <field name="has_casco"/>
+                        <field name="has_leasing"/>
                     </group>
 
                     <group string="Informatii">
                         <field name="rca_expire"/>
                         <field name="itp_expire"/>
+                        <field name="revizie_expire"/>
                         <field name="rovinieta_expire"/>
+                        <field name="casco_expire" invisible="has_casco == False" />
+                        <field name="leasing_expire" invisible="has_leasing == False" />
+                        
                     </group>
                 </sheet>
                 <chatter/>
