@@ -12,6 +12,12 @@ class CarAsset(models.Model):
     rca_expire = fields.Date(string="Data expirare RCA", tracking=True)
     itp_expire = fields.Date(string="Data expirare ", tracking=True)
     rovinieta_expire = fields.Date(string="Data expirare Rovinieta ", tracking=True)
+    leasing_expire = fields.Date(string="Data expirare Leasing", tracking=True)
+    casco_expire = fields.Date(string="Data expirare Casco", tracking=True)
+    revizie_expire = fields.Date(string="Data expirare Revizie Tehnica", tracking=True)
+
+    casco = fields.boolean(string="Casco")
+    leasing = fields.boolean(string="Leasing")
 
     def create(self, vals):
         record = super().create(vals)
