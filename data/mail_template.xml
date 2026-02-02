@@ -4,13 +4,11 @@
     <record id="email_car_expiry_reminder" model="mail.template">
         <field name="name">Alertă Mașină Document Expiră</field>
         <field name="model_id" ref="model_assets_car"/>
-        <field name="subject">
-            - {{ object.name }} - Alertă: {{ ctx.get('label') }} expiră în {{ ctx.get('days') }} zile
-        </field>
+        <field name="subject">- {{ object.name }} - Alertă: {{ ctx.get('label') }} în {{ ctx.get('days') }} zile </field>
         <field name="email_from">donotreply@artehnis.ro</field>
 
         <field name="body_html" type="html">
-            <![CDATA[
+            
             <div style="font-family: Arial, sans-serif; padding: 20px;">
                 <h2 style="color: #875A7B;">Alertă document auto</h2>
 
@@ -30,7 +28,7 @@
                     </tr>
 
                     <tr>
-                        <td><strong>Tip document:</strong></td>
+                        <td><strong>Cauza Alerta:</strong></td>
                         <td><t t-esc="ctx.get('label')"/></td>
                     </tr>
 
@@ -67,7 +65,7 @@
                     Mesaj generat automat de sistem.
                 </p>
             </div>
-            ]]>
+        
         </field>
     </record>
 </data>
