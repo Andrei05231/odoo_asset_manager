@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_car_expiry_reminder" model="ir.actions.server">
+        <field name="name">Send Car Expiry Reminders</field>
+        <field name="model_id" ref="odoo_asset_manager.model_assets_car"/>
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+model._cron_send_expiry_reminders()
+]]></field>
+    </record>
+</odoo>

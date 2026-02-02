@@ -1,22 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <data>
     <record id="email_car_expiry_reminder" model="mail.template">
-        <field name="name">Car Expiry Reminder</field>
+        <field name="name">Alertă Mașină Document Expiră</field>
         <field name="model_id" ref="model_assets_car"/>
         <field name="subject">
-             ${object.name} – ${ctx.get('label')} expires in ${ctx.get('days')} days
+            - {{ object.name }} - Alertă: {{ ctx.get('label') }} expiră în {{ ctx.get('days') }} zile
         </field>
         <field name="email_from">donotreply@artehnis.ro</field>
-        <field name="body_html">
+
+        <field name="body_html" type="html">
             <![CDATA[
-            <p>Hello,</p>
-            <p>
-                The <b>${ctx.get('label')}</b> for car <b>${object.name}</b>
-                (license: ${object.license_plate or '-'})
-                will expire on <b>${ctx.get('expire_date')}</b>.
-            </p>
-            <p>Please take action.</p>
+            <div style="font-family: Arial, sans-serif; padding: 20px;">
+                <h2 style="color: #875A7B;">Alertă document auto</h2>
+
+                <p>
+                    Acesta este un mesaj automat de notificare privind expirarea unui document auto.
+                </p>
+
+                <table style="border-collapse: collapse; margin: 20px 0;">
+                    <tr>
+                        <td><strong>Mașină:</strong></td>
+                        <td><t t-esc="object.name"/></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Număr de înmatriculare:</strong></td>
+                        <td><t t-esc="object.license_plate or 'N/A'"/></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Tip document:</strong></td>
+                        <td><t t-esc="ctx.get('label')"/></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Data expirării:</strong></td>
+                        <td style="color:#d9534f;">
+                            <t t-esc="ctx.get('expire_date')"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Zile rămase:</strong></td>
+                        <td style="color:#d9534f; font-weight:bold;">
+                            <t t-esc="ctx.get('days')"/> zile
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Responsabil:</strong></td>
+                        <td>
+                            <t t-if="object.driver">
+                                <t t-esc="object.driver.name"/>
+                            </t>
+                            <t t-else="">Nealocat</t>
+                        </td>
+                    </tr>
+                </table>
+
+                <p>
+                    Vă rugăm să luați măsurile necesare pentru reînnoirea documentului înainte de expirare.
+                </p>
+
+                <p style="font-size:12px; color:#666;">
+                    Mesaj generat automat de sistem.
+                </p>
+            </div>
             ]]>
         </field>
     </record>
+</data>
 </odoo>

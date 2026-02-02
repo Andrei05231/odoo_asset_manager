@@ -11,7 +11,7 @@ class CarAsset(models.Model):
     driver = fields.Many2one('hr.employee', string="Responsabil", tracking=True)
     
     rca_expire = fields.Date(string="Data expirare RCA", tracking=True)
-    itp_expire = fields.Date(string="Data expirare ", tracking=True)
+    itp_expire = fields.Date(string="Data expirare ITP", tracking=True)
     rovinieta_expire = fields.Date(string="Data expirare Rovinieta ", tracking=True)
     leasing_expire = fields.Date(string="Data expirare Leasing", tracking=True)
     casco_expire = fields.Date(string="Data expirare Casco", tracking=True)

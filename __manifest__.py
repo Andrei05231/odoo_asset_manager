@@ -21,11 +21,12 @@
         'views/score_views.xml',
         'views/computer_category_views.xml',
         'views/car_views.xml',
-        'data/ir_cron.xml',
-        'data/mail_template.xml'
-        ],
+        'data/mail_template.xml',
+        'data/ir_cron_data.xml'
+
+    ],
+    'post_load': 'post_load', 
     'installable':True,
     'application':True,
     'auto_install':False,
-        
 }
