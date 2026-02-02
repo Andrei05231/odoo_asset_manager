@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="email_car_expiry_reminder" model="mail.template">
+        <field name="name">Car Expiry Reminder</field>
+        <field name="model_id" ref="model_assets_car"/>
+        <field name="subject">
+             ${object.name} – ${ctx.get('label')} expires in ${ctx.get('days')} days
+        </field>
+        <field name="email_from">donotreply@artehnis.ro</field>
+        <field name="body_html">
+            <![CDATA[
+            <p>Hello,</p>
+            <p>
+                The <b>${ctx.get('label')}</b> for car <b>${object.name}</b>
+                (license: ${object.license_plate or '-'})
+                will expire on <b>${ctx.get('expire_date')}</b>.
+            </p>
+            <p>Please take action.</p>
+            ]]>
+        </field>
+    </record>
+</odoo>

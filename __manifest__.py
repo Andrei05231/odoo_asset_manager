@@ -20,7 +20,9 @@
         'views/tag_views.xml',
         'views/score_views.xml',
         'views/computer_category_views.xml',
-        'views/car_views.xml'
+        'views/car_views.xml',
+        'data/ir_cron.xml',
+        'data/mail_template.xml'
         ],
     'installable':True,
     'application':True,
