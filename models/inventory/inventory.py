@@ -20,7 +20,6 @@ class AssetInventoryNumber(models.Model):
             ('assets_monitor',"Monitor")
         ],
         string = "Asset",
-        readonly = True
     )
 
     number = fields.Integer(

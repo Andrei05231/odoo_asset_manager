@@ -1,4 +1,4 @@
-from .base import inventory_mixin, asset_mixin, asset_tag, history
+from .base import inventory_mixin, asset_mixin, asset_tag, history, main_item
 from .computer import computer_category, computer, monitor, compute_score 
 from .financial import finance_project
 from .software import license, software

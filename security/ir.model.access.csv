@@ -13,3 +13,5 @@ access_assets_tag_all,access.assets.tag.all,model_assets_tag,,1,1,1,1
 access_assets_component_score,access.assets.component.score,model_assets_component_score,,1,1,1,1
 access_assets_score_category_all,access.assets.score.category.all,model_assets_score_category,,1,1,1,1
 access_assets_car_user,access_assets_car_user,model_assets_car,base.group_user,1,1,1,1
+access_asset_item_user,access_asset_item_user,model_asset_item,base.group_user,1,1,1,0
+
