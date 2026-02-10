@@ -19,7 +19,7 @@ class AssetInventoryNumber(models.Model):
             ('assets_computer',"Computer"),
             ('assets_monitor',"Monitor")
         ],
-        string = "Asset",
+        string="Asset",
     )
 
     number = fields.Integer(
@@ -32,9 +32,11 @@ class AssetInventoryNumber(models.Model):
         compute='_compute_code',
         store=True
     )
-    
+
     date = fields.Date(
-            string="Data Achizitie")
+        string="Data Achizitie"
+    )
+
 
     _sql_constraints = [
         (
@@ -44,16 +46,54 @@ class AssetInventoryNumber(models.Model):
         )
     ]
 
-    @api.depends('company_id', 'number')
+    # -------------------------
+    # COMPUTE INVENTORY CODE
+    # -------------------------
+    @api.depends('company_id', 'number', 'date', 'asset_ref')
     def _compute_code(self):
         for rec in self:
-            rec.code = f"{rec.company_id.code} {rec.number}"
+            if not rec.company_id or not rec.number:
+                rec.code = False
+                continue
 
+            # company code
+            company_code = rec.company_id.code or ""
+
+            # number padded to 5 digits
+            number_str = str(rec.number).zfill(5)
+
+            # date
+            date_str = rec.date.strftime("%d%m%y") if rec.date else ""
+
+            # finance project from reference
+            finance_code = ""
+            if rec.asset_ref:
+                asset = rec.asset_ref  # this is a recordset
+                if hasattr(asset, "project_id") and asset.project_id:
+                    # use code if exists, otherwise name
+                    finance_code = getattr(asset.project_id, "code", False) \
+                                   or asset.project_id.name \
+                                   or ""
+
+            # build final code
+            parts = [company_code, number_str]
+
+            if date_str:
+                parts.append(date_str)
+
+            if finance_code:
+                parts.append(finance_code)
+
+            rec.code = "_".join(parts)
+
+    # -------------------------
+    # GENERATE NEXT NUMBER
+    # -------------------------
     @api.model
-    def generate_next(self, company):
+    def generate_next(self, company, asset_ref=None, date=None):
         """
-        Generate the next inventory number for a company
-        Uses database locking to prevent duplicates
+        Generate next sequential number per company
+        Safe for concurrency
         """
 
         self.env.cr.execute("""
@@ -66,9 +106,12 @@ class AssetInventoryNumber(models.Model):
         """, (company.id,))
 
         row = self.env.cr.fetchone()
-        next_number = (row[0] if row else 2000) + 1
+        next_number = (row[0] if row else 0) + 1
 
         return self.create({
             'company_id': company.id,
             'number': next_number,
+            'asset_ref': asset_ref,
+            'date': date,
         })
+

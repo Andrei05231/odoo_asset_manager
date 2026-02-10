@@ -23,7 +23,7 @@
         'views/car_views.xml',
         'data/mail_template.xml',
         'data/ir_cron_data.xml',
-        'views/main_asset.xml'
+        'views/main_asset.xml',
 
     ],
     'post_load': 'post_load', 
