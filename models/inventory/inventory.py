@@ -32,6 +32,9 @@ class AssetInventoryNumber(models.Model):
         compute='_compute_code',
         store=True
     )
+    
+    date = fields.Date(
+            string="Data Achizitie")
 
     _sql_constraints = [
         (
