@@ -2,7 +2,8 @@
 <odoo>
 
 <menuitem id="menu_assets_root" name="Asset Manager"
-    web_icon="odoo_asset_manager,static/description/icon.png"/>
+    web_icon="odoo_asset_manager,static/description/icon.png"
+    action="action_asset_inventory_number"/>
 <menuitem id="menu_assets_pc" name="PC" parent="menu_assets_root" />
 <menuitem id="menu_assets_financial" name="Financial" parent="menu_assets_root" />
 <menuitem id="menu_assets_software" name="Software" parent="menu_assets_root"/>
