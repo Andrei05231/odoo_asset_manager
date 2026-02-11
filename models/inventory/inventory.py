@@ -37,14 +37,28 @@ class AssetInventoryNumber(models.Model):
         string="Data Achizitie"
     )
 
+    asset_type = fields.Selection([
+        ('assets_phone', "Phone / Tablet"),
+        ('assets_other', "Other"),
+        ('assets_computer', "Computer"),
+        ('assets_monitor', "Monitor")
+    ], string="Asset Type", compute="_compute_asset_type", store=True)
 
-    _sql_constraints = [
-        (
-            'unique_company_number',
-            'unique(company_id, number)',
-            'Inventory number must be unique per company.'
-        )
-    ]
+    @api.depends('asset_ref')
+    def _compute_asset_type(self):
+        for rec in self:
+            if rec.asset_ref:
+                # Extracts 'assets_phone' from 'assets_phone,14'
+                rec.asset_type = rec.asset_ref._name if hasattr(rec.asset_ref, '_name') else rec.asset_ref.split(',')[0]
+            else:
+                rec.asset_type = False
+        _sql_constraints = [
+            (
+                'unique_company_number',
+                'unique(company_id, number)',
+                'Inventory number must be unique per company.'
+            )
+        ]
 
     # -------------------------
     # COMPUTE INVENTORY CODE
@@ -63,7 +77,7 @@ class AssetInventoryNumber(models.Model):
             number_str = str(rec.number).zfill(5)
 
             # date
-            date_str = rec.date.strftime("%d%m%y") if rec.date else ""
+            date_str = rec.date.strftime("%Y%m%d") if rec.date else ""
 
             # finance project from reference
             finance_code = ""
