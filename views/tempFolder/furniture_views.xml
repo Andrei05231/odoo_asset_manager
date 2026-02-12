@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_assets_furniture_list" model="ir.ui.view">
+        <field name="name">assets.furniture.list</field>
+        <field name="model">assets.furniture</field>
+        <field name="arch" type="xml">
+            <list string="Furniture">
+                <field name="name"/>
+                <field name="furniture_type"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_assets_furniture_form" model="ir.ui.view">
+        <field name="name">assets.furniture.form</field>
+        <field name="model">assets.furniture</field>
+        <field name="arch" type="xml">
+            <form string="Furniture">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Furniture Name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Desk, Executive Chair..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="furniture_type" placeholder="e.g. Office, Storage, Seating"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Technical Details" name="details">
+                            <field name="details" placeholder="Dimensions, material, assembly info..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_assets_furniture" model="ir.actions.act_window">
+        <field name="name">Furniture</field>
+        <field name="res_model">assets.furniture</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_assets_furniture" 
+              name="Furniture" 
+              parent="menu_assets_root" 
+              action="action_assets_furniture" 
+              sequence="20"/>
+</odoo>
