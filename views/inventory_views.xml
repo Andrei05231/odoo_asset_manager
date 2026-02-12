@@ -110,12 +110,7 @@
                                             <field name="asset_type"/>
                                         </span>
                                     </div>
-                                    <div class="oe_kanban_bottom_right">
-                                        <span class = "badge rounded-pill px-2 py-1" 
-                                            t-attf-style="background-color:#{current_config.color}22; color:#{current_config.color}; ">
-                                            <field name="number"/>
-                                        </span>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
