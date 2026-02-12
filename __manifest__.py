@@ -23,6 +23,8 @@
         'views/car_views.xml',
         'data/mail_template.xml',
         'data/ir_cron_data.xml',
+        'views/tempFolder/server_view.xml',
+        'views/tempFolder/furniture_views.xml'
 
     ],
     'post_load': 'post_load', 

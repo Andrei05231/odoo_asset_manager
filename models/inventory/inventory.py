@@ -14,10 +14,15 @@ class AssetInventoryNumber(models.Model):
 
     asset_ref = fields.Reference(
         selection=[
-            ('assets_phone',"Phone / Tablet"),
-            ('assets_other',"Other"),
-            ('assets_computer',"Computer"),
-            ('assets_monitor',"Monitor")
+            ('assets_phone', "Phone / Tablet"),
+            ('assets_other', "Other"),
+            ('assets_computer', "Computer"),
+            ('assets_monitor', "Monitor"),
+            ('assets_printer', "Printer"),
+            ('assets.furniture', "Furniture"),
+            ('assets.server', "Server"),
+            ('assets_license', "Software License"),
+            ('assets.car',"Vehicle/Car"),
         ],
         string="Asset",
     )
@@ -41,7 +46,12 @@ class AssetInventoryNumber(models.Model):
         ('assets_phone', "Phone / Tablet"),
         ('assets_other', "Other"),
         ('assets_computer', "Computer"),
-        ('assets_monitor', "Monitor")
+        ('assets_monitor', "Monitor"),
+        ('assets_printer', "Printer"),
+        ('assets.furniture', "Furniture"),
+        ('assets.server', "Server"),
+        ('assets_license', "Software License"),
+         ('assets.car',"Vehicle/Car",)
     ], string="Asset Type", compute="_compute_asset_type", store=True)
 
     @api.depends('asset_ref')

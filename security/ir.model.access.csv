@@ -14,4 +14,5 @@ access_assets_component_score,access.assets.component.score,model_assets_compone
 access_assets_score_category_all,access.assets.score.category.all,model_assets_score_category,odoo_security_groups.group_administrativ,1,1,1,1
 access_assets_car_user,access_assets_car_user,model_assets_car,odoo_security_groups.group_administrativ,1,1,1,1
 access_asset_item_user,access_asset_item_user,model_asset_item,odoo_security_groups.group_administrativ,1,1,1,0
-
+access_assets_server_all,access.assets.server.all,model_assets_server,odoo_security_groups.group_administrativ,1,1,1,1
+access_assets_furniture_all,access.assets.furniture.all,model_assets_furniture,odoo_security_groups.group_administrativ,1,1,1,1

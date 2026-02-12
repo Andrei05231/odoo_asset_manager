@@ -2,116 +2,127 @@
 <odoo>
 
     <!-- Kanban View -->
-<record id="view_asset_inventory_number_kanban" model="ir.ui.view">
-    <field name="name">asset.inventory.number.kanban</field> <field name="model">asset.inventory.number</field>
-    <field name="arch" type="xml">
- <kanban class="o_kanban_mobile" sample="1">
-    <field name="code"/>
-    <field name="date"/>
-    <field name="company_id"/>
-    <field name="asset_ref"/>
-    <field name="asset_type"/>
-    <field name="number"/>
+ <record id="view_asset_inventory_number_kanban" model="ir.ui.view">
+        <field name="name">asset.inventory.number.kanban</field>
+        <field name="model">asset.inventory.number</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" sample="1">
+                <field name="code"/>
+                <field name="date"/>
+                <field name="company_id"/>
+                <field name="asset_ref"/>
+                <field name="asset_type"/>
+                <field name="number"/>
 
-    <templates>
-        <t t-name="card">
-            <t t-set="type_config" t-value="{
-                'assets_phone': {'icon': 'fa-mobile', 'color': '#71639e'},
-                'assets_computer': {'icon': 'fa-laptop', 'color': '#00a65a'},
-                'assets_monitor': {'icon': 'fa-desktop', 'color': '#007bff'},
-                'assets_other': {'icon': 'fa-cube', 'color': '#6c757d'}
-            }"/>
-            
-            <t t-set="current_config" t-value="type_config[record.asset_type.raw_value] || type_config['assets_other']"/>
+                <templates>
+                    <t t-name="card">
+                        <t t-set="type_config" t-value="{
+                            'assets_phone': {'icon': 'fa-mobile', 'color': '#71639e'},
+                            'assets_computer': {'icon': 'fa-laptop', 'color': '#00a65a'},
+                            'assets_monitor': {'icon': 'fa-desktop', 'color': '#007bff'},
+                            'assets_printer': {'icon': 'fa-print', 'color': '#ff9800'},
+                            'assets.server': {'icon': 'fa-server', 'color': '#dc3545'},
+                            'assets.furniture': {'icon': 'fas fa-building', 'color': '#8d6e63'},
+                            'assets_license': {'icon': 'fa-key', 'color': '#5faddd'},
+                            'assets_other': {'icon': 'fa-wrench', 'color': '#92ac4e'},
+                            'assets.car': {'icon': 'fa-car', 'color': '#27807e'},
+                            'noType': {'icon':'fa-cube', 'color':'#747474'}
+                        }"/>
+                        
+                        <t t-set="current_config" t-value="type_config[record.asset_type.raw_value] || type_config['noType']"/>
 
-            <style>
-                .o_kanban_record {
-                    border-radius: 12px !important;
-                    overflow: hidden !important;
-                    padding: 0 !important; /* Remove default padding to allow side-strip */
-                    position: relative;
-                }
-                .asset-side-strip {
-                    width: 6px;
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    bottom: 0;
-                }
-                .asset-icon-watermark {
-                    position: absolute;
-                    right: -5px;
-                    bottom: -10px;
-                    font-size: 6.5rem;
-                    opacity: 0.05;
-                    transform: rotate(-10deg);
-                    pointer-events: none;
-                }
-                .asset-avatar-box {
-                    width: 44px;
-                    height: 44px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 10px;
-                    font-size: 1.4rem;
-                }
-            </style>
+                        <style>
+                            .o_kanban_record {
+                                border-radius: 12px !important;
+                                overflow: hidden !important;
+                                padding: 0 !important;
+                                position: relative;
+                            }
+                            .asset-side-strip {
+                                width: 6px;
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                bottom: 0;
+                            }
+                            .asset-icon-watermark {
+                                position: absolute;
+                                right: -5px;
+                                bottom: -10px;
+                                font-size: 6.5rem;
+                                opacity: 0.05;
+                                transform: rotate(-10deg);
+                                pointer-events: none;
+                            }
+                            .asset-avatar-box {
+                                width: 44px;
+                                height: 44px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                border-radius: 10px;
+                                font-size: 1.4rem;
+                            }
+                        </style>
 
-            <div class="oe_kanban_global_click d-flex flex-column h-100">
-                <div class="asset-side-strip" t-attf-style="background-color: #{current_config.color};"/>
-                
-                <i t-attf-class="fa #{current_config.icon} asset-icon-watermark"/>
-
-                <div class="p-3">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="asset-avatar-box" t-attf-style="background-color: #{current_config.color}22; color: #{current_config.color};">
-                                <i t-attf-class="fa #{current_config.icon}"/>
-                            </div>
+                        <div class="oe_kanban_global_click d-flex flex-column h-100">
+                            <div class="asset-side-strip" t-attf-style="background-color: #{current_config.color};"/>
                             
-                            <div class="d-flex flex-column">
-                                <strong class="o_kanban_record_title fs-5 mb-0" t-attf-style="color: #{current_config.color};">
-                                    <field name="asset_ref"/>
-                                </strong>
-                                <div class="text-muted small">
-                                    <field name="company_id"/>
+                            <i t-attf-class="fa #{current_config.icon} asset-icon-watermark"/>
+
+                            <div class="p-3">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="asset-avatar-box" t-attf-style="background-color: #{current_config.color}22; color: #{current_config.color};">
+                                            <i t-attf-class="fa #{current_config.icon}"/>
+                                        </div>
+                                        
+                                        <div class="d-flex flex-column">
+                                            <strong class="o_kanban_record_title fs-5 mb-0" t-attf-style="color: #{current_config.color};">
+                                                <field name="asset_ref"/>
+                                            </strong>
+                                            <div class="text-muted small">
+                                                <field name="company_id"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="badge rounded-pill px-2 py-1 small fw-normal"
+                                        t-attf-style="background-color:#{current_config.color}22; color:#{current_config.color}; ">
+                                        <t t-if="record.date.raw_value">
+                                            <t t-set="date_obj" t-value="luxon.DateTime.fromISO(record.date.raw_value)"/>
+                                            <t t-out="date_obj.toFormat('yyyy')"/>
+                                        </t>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="text-uppercase text-muted mb-1" style="font-size: 0.6rem; font-weight: 800;">Inventory Number</div>
+                                    <div class="text-dark fw-bold">
+                                        <field name="code"/>
+                                    </div>
+                                </div>
+
+                                <div class="o_kanban_record_bottom d-flex justify-content-between align-items-center pt-2 border-top">
+                                    <div class="oe_kanban_bottom_left">
+                                        <span class="badge rounded-pill px-2 py-1" 
+                                              t-attf-style="background-color: #{current_config.color}; color: white;">
+                                            <field name="asset_type"/>
+                                        </span>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <span class = "badge rounded-pill px-2 py-1" 
+                                            t-attf-style="background-color:#{current_config.color}22; color:#{current_config.color}; ">
+                                            <field name="number"/>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="badge text-dark rounded-pill border bg-light px-2 py-1 small fw-normal">
-                            <t t-if="record.date.raw_value">
-                                <t t-set="date_obj" t-value="luxon.DateTime.fromISO(record.date.raw_value)"/>
-                                <t t-out="date_obj.toFormat('yyyy')"/>
-                            </t>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="text-uppercase text-muted mb-1" style="font-size: 0.6rem; font-weight: 800;">Inventory Number</div>
-                        <div class="text-dark fw-bold">
-                            <field name="code"/>
-                        </div>
-                    </div>
-
-                    <div class="o_kanban_record_bottom d-flex justify-content-between align-items-center pt-2 border-top">
-                        <div class="oe_kanban_bottom_left">
-                            <span class="badge rounded-pill px-2 py-1" 
-                                  t-attf-style="background-color: #{current_config.color}; color: white;">
-                                <field name="asset_type"/>
-                            </span>
-                        </div>
-                        <div class="oe_kanban_bottom_right">
-                            <field name="number" widget="badge" decoration-info="1"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </t>
-    </templates>
-</kanban>
-    </field>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
     </record>
 
     <!-- List View -->
@@ -151,20 +162,19 @@
     <!-- Search View (safe for all users, sidebar filters included) -->
     
 <record id="view_asset_inventory_number_search" model="ir.ui.view">
-    <field name="name">asset.inventory.number.search</field>
-    <field name="model">asset.inventory.number</field>
-    <field name="arch" type="xml">
-        <search string="Inventory Search">
-            <field name="number"/>
-            <field name="code"/>
-
-            <searchpanel>
-                <field name="company_id" string="Company" icon="fa-building"/>
-                <field name="asset_type" string="Type" icon="fa-laptop"/>
-            </searchpanel>
-        </search>
-    </field>
-</record>
+        <field name="name">asset.inventory.number.search</field>
+        <field name="model">asset.inventory.number</field>
+        <field name="arch" type="xml">
+            <search string="Inventory Search">
+                <field name="number"/>
+                <field name="code"/>
+                <searchpanel>
+                    <field name="company_id" string="Company" icon="fa-building"/>
+                    <field name="asset_type" string="Type" icon="fa-tags"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
 
     <!-- Action -->
     <record id="action_asset_inventory_number" model="ir.actions.act_window">

@@ -8,10 +8,5 @@
 <menuitem id="menu_assets_financial" name="Financial" parent="menu_assets_root" />
 <menuitem id="menu_assets_software" name="Software" parent="menu_assets_root"/>
 <menuitem id="menu_assets_devices" name="Devices" parent="menu_assets_root"/>
-
 <menuitem id="menu_assets_config" name="Config" parent="menu_assets_root"/>
-
-
-
-
 </odoo>

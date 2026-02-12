@@ -6,3 +6,5 @@ from .devices import printer, other, phone_tablet
 from .inventory import inventory, res_company
 from .scoring import component_score
 from .cars import car
+from .network import server
+from .furniture import furniture
