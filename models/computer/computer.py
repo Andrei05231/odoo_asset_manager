@@ -8,7 +8,8 @@ _logger = logging.getLogger(__name__)
 
 class Computer(models.Model):
     _name="assets_computer"
-    
+    _inherit = "assets_inventory_mixin"
+
     name = fields.Char()
     is_used = fields.Boolean()
     inventoryNumber = fields.Char()

@@ -2,6 +2,7 @@ from odoo import models, fields
 
 class Monitor(models.Model):
     _name = "assets_monitor"
+    _inherit = "assets_inventory_mixin"
 
     name = fields.Char()
     is_used = fields.Boolean()
