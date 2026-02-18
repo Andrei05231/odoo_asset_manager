@@ -8,13 +8,6 @@ class AssetMixin(models.AbstractModel):
 
     details = fields.Text(string='Notes')
 
-    inventory_code = fields.Char(
-        string="Inventory Code",
-        related='inventory_number_id.code',
-        readonly=True,
-        store=True
-    )
-
     project_id = fields.Many2one('assets_project', string="Project")
     company_id = fields.Many2one('res.company',
                                 string='Company',

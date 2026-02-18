@@ -29,7 +29,8 @@ class AssetInventoryNumber(models.Model):
 
     number = fields.Integer(
         string="Number",
-        required=True
+        required=True,
+        readonly=True
     )
 
     code = fields.Char(
@@ -80,14 +81,12 @@ class AssetInventoryNumber(models.Model):
                 rec.code = False
                 continue
 
-            # company code
             company_code = rec.company_id.code or ""
 
             # number padded to 5 digits
             number_str = str(rec.number).zfill(5)
 
-            # date
-            date_str = rec.date.strftime("%Y%m%d") if rec.date else ""
+            date_str = rec.date.strftime("%y%m%d") if rec.date else ""
 
             # finance project from reference
             finance_code = ""
@@ -113,13 +112,18 @@ class AssetInventoryNumber(models.Model):
     # -------------------------
     # GENERATE NEXT NUMBER
     # -------------------------
-    @api.model
-    def generate_next(self, company, asset_ref=None, date=None):
-        """
-        Generate next sequential number per company
-        Safe for concurrency
-        """
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            # If 'number' is 0 or missing, generate the next one
+            if not vals.get('number'):
+                company_id = vals.get('company_id') or self.env.company.id
+                vals['number'] = self._get_next_inventory_number(company_id)
+        return super(AssetInventoryNumber, self).create(vals_list)
+
+    def _get_next_inventory_number(self, company_id):
+        """ Internal helper to get the next number with a row lock """
         self.env.cr.execute("""
             SELECT number
             FROM asset_inventory_number
@@ -127,15 +131,52 @@ class AssetInventoryNumber(models.Model):
             ORDER BY number DESC
             LIMIT 1
             FOR UPDATE
-        """, (company.id,))
+        """, (company_id,))
+        
+        row = self.env.cr.fetchone()
+        return (row[0] if row else 0) + 1
+    
+
+
+    @api.model
+    def generate_next(self, asset): 
+        """
+        Generates or retrieves an inventory number.
+        Handles missing projects or missing project dates gracefully.
+        """
+        if not asset:
+            return False
+
+        # 1. Check for existing record to prevent duplicates
+        existing = self.search([
+            ('asset_ref', '=', f"{asset._name},{asset.id}"),
+            ('company_id', '=', asset.company_id.id)
+        ], limit=1)
+        
+        if existing:
+            return existing
+
+        # 2. Concurrency Lock for the next sequence number
+        self.env.cr.execute("""
+            SELECT number FROM asset_inventory_number
+            WHERE company_id = %s
+            ORDER BY number DESC LIMIT 1
+            FOR UPDATE
+        """, (asset.company_id.id,))
 
         row = self.env.cr.fetchone()
         next_number = (row[0] if row else 0) + 1
 
-        return self.create({
-            'company_id': company.id,
-            'number': next_number,
-            'asset_ref': asset_ref,
-            'date': date,
-        })
+        # 3. Handle the Date (Safe Navigation)
+        # We check if project_id exists and has a date; otherwise, False
+        inv_date = False
+        if hasattr(asset, 'project_id') and asset.project_id:
+            inv_date = asset.project_id.date
 
+        # 4. Create the Registry Record
+        return self.create({
+            'company_id': asset.company_id.id,
+            'number': next_number,
+            'asset_ref': f"{asset._name},{asset.id}",
+            'date': inv_date, 
+        })
