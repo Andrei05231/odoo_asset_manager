@@ -8,7 +8,7 @@ class CarAsset(models.Model):
 
     name = fields.Char(string="Masina", required=True)
     license_plate = fields.Char(string="Nr. Inmatriculare")
-    driver = fields.Many2one('hr.employee', string="Responsabil", tracking=True)
+    user_id = fields.Many2one('hr.employee', string="Responsabil", tracking=True)
     
     rca_expire = fields.Date(string="Data expirare RCA", tracking=True)
     itp_expire = fields.Date(string="Data expirare ITP", tracking=True)
@@ -54,8 +54,8 @@ class CarAsset(models.Model):
                     if expire_date == today + timedelta(days=days):
                         recipients = []
 
-                        if car.driver and car.driver.work_email:
-                            recipients.append(car.driver.work_email)
+                        if car.user_id and car.user_id.work_email:
+                            recipients.append(car.user_id.work_email)
 
                         recipients += self.STATIC_EMAILS
 

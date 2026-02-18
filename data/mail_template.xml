@@ -49,8 +49,8 @@
                     <tr>
                         <td><strong>Responsabil:</strong></td>
                         <td>
-                            <t t-if="object.driver">
-                                <t t-esc="object.driver.name"/>
+                            <t t-if="object.user_id">
+                                <t t-esc="object.user_id.name"/>
                             </t>
                             <t t-else="">Nealocat</t>
                         </td>

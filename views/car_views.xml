@@ -9,7 +9,7 @@
             <list>
                 <field name="name"/>
                 <field name="license_plate"/>
-                <field name="driver"/>
+                <field name="user_id"/>
                 <field name="rca_expire"/>
                 <field name="itp_expire"/>
                 <field name="rovinieta_expire"/>
@@ -27,7 +27,7 @@
                     <group>
                         <field name="name"/>
                         <field name="license_plate"/>
-                        <field name="driver"/>
+                        <field name="user_id"/>
                         <field name="has_casco"/>
                         <field name="has_leasing"/>
                     </group>
