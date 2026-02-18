@@ -28,6 +28,12 @@
                         <field name="price"/>
                         <field name="project_id"/>
                         <field name="company_id"/>
+                        <field name="inventory_code" readonly="1" class="oe_inline"/>
+                        <button name="action_generate_inventory_number"
+                                            type="object"
+                                            string="Generate"
+                                            invisible="inventory_code"
+                                            class="btn-primary oe_inline"/>
                     </group>
                 </sheet>
             </form>

@@ -136,22 +136,35 @@
     </record>
 
     <!-- Form View -->
-    <record id="view_asset_inventory_number_form" model="ir.ui.view">
-        <field name="name">asset.inventory.number.form</field>
-        <field name="model">asset.inventory.number</field>
-        <field name="arch" type="xml">
-            <form string="Asset Inventory Number">
-                <sheet>
-                    <group>
-                        <field name="company_id"/>
-                        <field name="number"/>
-                        <field name="date"/>
-                        <field name="code" readonly="1"/>
-                        <field name="asset_ref"/>
+<record id="view_asset_inventory_number_form" model="ir.ui.view">
+    <field name="name">asset.inventory.number.form</field>
+    <field name="model">asset.inventory.number</field>
+    <field name="arch" type="xml">
+        <form string="Asset Inventory Number">
+            <sheet>
+                <div class="oe_title">
+                    <label for="code" string="Inventory Code"/>
+                    <h1>
+                        <field name="code" readonly="1" class="text-primary"/>
+                    </h1>
+                    <div class="d-flex align-items-center gap-2">
+                        <label for="number" string="Number"/>
+                        <field name="number" class="fw-bold"/>
+                    </div>
+                </div>
+
+                <group mt-4="1">
+                    <group name="assignment_details" string="Asset Assignment">
+                        <field name="asset_ref" options="{'hide_model': False}"/>
+                        <field name="company_id" options="{'no_create': True, 'no_open': True}"/>
                     </group>
-                </sheet>
-            </form>
-        </field>
+                    <group name="timing_details" string="Temporal Info">
+                        <field name="date"/>
+                    </group>
+                </group>
+            </sheet>
+        </form>
+    </field>
     </record>
 
     <!-- Search View (safe for all users, sidebar filters included) -->
