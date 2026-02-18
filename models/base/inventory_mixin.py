@@ -14,19 +14,28 @@ class InventoryNumberMixin(models.AbstractModel):
         string="Inventory",
         readonly=True
     )
+    
+    inventory_code = fields.Char(
+        string="Inventory Code",
+        related='inventory_number_id.code',
+        readonly=True,
+        store=True
+    )
 
     def action_generate_inventory_number(self):
-        for asset in self:
-            if asset.inventory_number_id:
-                continue
+            for asset in self:
+                # Skip if already assigned
+                if asset.inventory_number_id:
+                    continue
 
-            if not asset.company_id:
-                raise UserError('Please set the project (company) before generating an inventory number.')
-            
-            inventory_number = self.env['asset.inventory.number'].generate_next(asset.company_id)
-            inventory_number.asset_ref = f'{asset._name},{asset.id}'
-            asset.inventory_number_id = inventory_number.id
-
+                if not asset.company_id:
+                    raise UserError('Please set the company before generating an inventory number.')
+                
+                # Pass 'self' (the current asset record) to the registry
+                inventory_rec = self.env['asset.inventory.number'].generate_next(asset)
+                
+                # Link the new (or existing) registry record back to the asset
+                asset.inventory_number_id = inventory_rec.id
 
     def migrate_inventory_numbers(self):
         Inventory = self.env['asset.inventory.number']
