@@ -15,7 +15,7 @@ class AssetInventoryNumber(models.Model):
     asset_ref = fields.Reference(
         selection=[
             ('assets_phone', "Phone / Tablet"),
-            ('assets_other', "Other"),
+            ('assets_other', "Echipamente Ingineresti"),
             ('assets_computer', "Computer"),
             ('assets_monitor', "Monitor"),
             ('assets_printer', "Printer"),
@@ -53,7 +53,7 @@ class AssetInventoryNumber(models.Model):
 
     asset_type = fields.Selection([
         ('assets_phone', "Phone / Tablet"),
-        ('assets_other', "Other"),
+        ('assets_other', "Echipamente Ingineresti"),
         ('assets_computer', "Computer"),
         ('assets_monitor', "Monitor"),
         ('assets_printer', "Printer"),
