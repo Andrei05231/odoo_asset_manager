@@ -29,6 +29,12 @@
                         <field name="user_id"/>
                         <field name="finance_project_id"/>
                         <field name="company_id"/>
+                         <field name="inventory_code" readonly="1" class="oe_inline"/>
+                        <button name="action_generate_inventory_number"
+                                            type="object"
+                                            string="Generate"
+                                            invisible="inventory_code"
+                                            class="btn-primary oe_inline"/>
                     </group>
                 </sheet>
             </form>
@@ -48,6 +54,17 @@
                 <field name="user_id"/>
             </list>
         </field>
+    </record>
+
+  <record id="action_get_inventory_number" model="ir.actions.server">
+        <field name="name">Generate inventory number </field>
+        <field name="model_id" ref="model_assets_computer"/>
+        <field name="binding_model_id" ref="model_assets_computer"/>
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+        action = records.action_generate_inventory_number()
+action
+        ]]></field>
     </record>
 
     <!--Menu-->

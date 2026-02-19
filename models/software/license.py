@@ -1,7 +1,8 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 class License(models.Model):
     _name = "assets_license"
+    _inherit = "assets_inventory_mixin"
 
     name = fields.Char()
     software_id=fields.Many2one("assets_software", string="Software")
@@ -23,6 +24,7 @@ class License(models.Model):
             readonly=True,            
             string="Assigned User"          
         )
+    project_id = fields.Many2one("assets_project", compute="_compute_new_field", store=True)
     finance_project_id = fields.Many2one("assets_project", string="Financing Project")
     company_id = fields.Many2one("res.company", 
             related="finance_project_id.company_id",
@@ -30,4 +32,10 @@ class License(models.Model):
             readonly=True,
             string="Company"                         
         )
-    
+
+
+
+    @api.depends('finance_project_id')
+    def _compute_new_field(self):
+        for record in self:
+            record.project_id = record.finance_project_id
