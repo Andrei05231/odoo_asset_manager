@@ -73,7 +73,7 @@
                             <div class="p-3">
                                 <div class="d-flex justify-content-between align-items-start mb-3">
                                     <div class="d-flex align-items-center gap-3">
-                                        <div class="asset-avatar-box" t-attf-style="background-color: #{current_config.color}22; color: #{current_config.color};">
+                                        <div class="asset-avatar-box col-2" t-attf-style="background-color: #{current_config.color}22; color: #{current_config.color};">
                                             <i t-attf-class="fa #{current_config.icon}"/>
                                         </div>
                                         
@@ -87,7 +87,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="badge rounded-pill px-2 py-1 small fw-normal"
+                                    <div class="badge rounded-pill col-2 px-2 py-1"
                                         t-attf-style="background-color:#{current_config.color}22; color:#{current_config.color}; ">
                                         <t t-if="record.date.raw_value">
                                             <t t-set="date_obj" t-value="luxon.DateTime.fromISO(record.date.raw_value)"/>
