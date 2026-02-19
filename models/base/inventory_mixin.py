@@ -28,8 +28,8 @@ class InventoryNumberMixin(models.AbstractModel):
                 if asset.inventory_number_id:
                     continue
 
-                if not asset.company_id:
-                    raise UserError('Please set the company before generating an inventory number.')
+                if not asset.company_id and not asset.user_id.company_id:
+                    raise UserError('You need a linked company to create an Inventory Number(Finance project or company employee)')
                 
                 # Pass 'self' (the current asset record) to the registry
                 inventory_rec = self.env['asset.inventory.number'].generate_next(asset)

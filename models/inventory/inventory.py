@@ -42,6 +42,14 @@ class AssetInventoryNumber(models.Model):
     date = fields.Date(
         string="Data Achizitie"
     )
+    
+    user_id = fields.Many2one(
+        'hr.employee', 
+        string="Asset User",
+        readonly=True,
+        store=True,
+        help="The user assigned to the asset at the time of registry."
+    )
 
     asset_type = fields.Selection([
         ('assets_phone', "Phone / Tablet"),
@@ -137,46 +145,66 @@ class AssetInventoryNumber(models.Model):
         return (row[0] if row else 0) + 1
     
 
-
     @api.model
     def generate_next(self, asset): 
         """
-        Generates or retrieves an inventory number.
-        Handles missing projects or missing project dates gracefully.
+        Generates/Retrieves inventory number.
+        Safely handles missing projects, missing users, or models 
+        that don't have those fields at all.
         """
         if not asset:
             return False
 
-        # 1. Check for existing record to prevent duplicates
+        if asset.company_id:
+            asset_company = asset.company_id.id
+        else:
+            asset_company = asset.user_id.company_id.id
+
+        # 1. Check for existing record
         existing = self.search([
             ('asset_ref', '=', f"{asset._name},{asset.id}"),
-            ('company_id', '=', asset.company_id.id)
+            ('company_id', '=', asset_company)
         ], limit=1)
         
         if existing:
             return existing
 
-        # 2. Concurrency Lock for the next sequence number
+        # 2. Concurrency Lock for sequence
         self.env.cr.execute("""
             SELECT number FROM asset_inventory_number
             WHERE company_id = %s
             ORDER BY number DESC LIMIT 1
             FOR UPDATE
-        """, (asset.company_id.id,))
+        """, (asset_company,))
 
         row = self.env.cr.fetchone()
         next_number = (row[0] if row else 0) + 1
 
-        # 3. Handle the Date (Safe Navigation)
-        # We check if project_id exists and has a date; otherwise, False
-        inv_date = False
-        if hasattr(asset, 'project_id') and asset.project_id:
-            inv_date = asset.project_id.date
+        # 3. Safe Data Extraction
+        # getattr(object, 'field_name', default) prevents crashes if field is missing
+        
+        # Project Date logic
+        project = getattr(asset, 'project_id', False)
+        
+        #inv_date = project.date if project and hasattr(project, 'date') else False
+
+        if  project and hasattr(project, 'date'):
+            inv_date = project.date
+        elif hasattr(asset, "asset_date") :
+            inv_date = getattr(asset, "asset_date", False)
+        else:
+            inv_date = False
+            
+        # User logic: Get user_id.id if it exists, else False
+        # Note: getattr(asset, 'user_id', False) returns the recordset or False
+        asset_user = getattr(asset, 'user_id', False)
+        inv_user_id = asset_user.id if asset_user else False
 
         # 4. Create the Registry Record
         return self.create({
-            'company_id': asset.company_id.id,
+            'company_id': asset_company,
             'number': next_number,
             'asset_ref': f"{asset._name},{asset.id}",
-            'date': inv_date, 
+            'date': inv_date,
+            'user_id': inv_user_id,
         })

@@ -111,6 +111,13 @@
                                         </span>
                                     </div>
                                     
+                                    <div class="oe_kanban_bottom_right">
+                                        <span class="badge rounded-pill px-2 py-1" 
+                                              t-attf-style="background-color: #{current_config.color}; color: white;">
+                                            <field name="user_id"/>
+                                        </span>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -160,6 +167,7 @@
                     </group>
                     <group name="timing_details" string="Temporal Info">
                         <field name="date"/>
+                        <field name="user_id"/>
                     </group>
                 </group>
             </sheet>
