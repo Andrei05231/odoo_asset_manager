@@ -50,6 +50,8 @@ class Computer(models.Model):
     )
 
     manual_complete = fields.Boolean(string="Complete Data")
+    
+    asset_date = fields.Date()
 
     def _compute_history_ids(self):
         for record in self:

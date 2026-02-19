@@ -60,6 +60,7 @@
                                     <field name="gpu"/>
                                     <field name="memory"/>
                                     <field name="ip_address"/>
+                                    <field name="asset_date"/>
                                 </group>
 
                                 <group string="Scores">
