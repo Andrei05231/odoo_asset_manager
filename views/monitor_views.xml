@@ -36,6 +36,7 @@
                                             class="btn-primary oe_inline"/>
                     </group>
                 </sheet>
+                <chatter/>
             </form>
         </field>
     </record>

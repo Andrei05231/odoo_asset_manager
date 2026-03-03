@@ -2,11 +2,11 @@ from odoo import models, fields
 
 class Monitor(models.Model):
     _name = "assets_monitor"
-    _inherit = "assets_inventory_mixin"
+    _inherit = ["assets_inventory_mixin", "mail.thread", "mail.activity.mixin"]
 
     name = fields.Char()
     is_used = fields.Boolean()
-    computer_id = fields.Many2one("assets_computer", string="Computer")
+    computer_id = fields.Many2one("assets_computer", string="Computer", tracking=True)
     serial_number = fields.Char()
     inventory_number = fields.Char()
     model = fields.Char()
