@@ -8,13 +8,13 @@ _logger = logging.getLogger(__name__)
 
 class Computer(models.Model):
     _name="assets_computer"
-    _inherit = "assets_inventory_mixin"
+    _inherit = ["assets_inventory_mixin", "mail.thread", "mail.activity.mixin"]
 
     name = fields.Char()
-    is_used = fields.Boolean()
+    is_used = fields.Boolean(tracking=True)
     inventoryNumber = fields.Char()
     serialNumber = fields.Char()
-    user_id = fields.Many2one('hr.employee', string="Assigned User")
+    user_id = fields.Many2one('hr.employee', string="Assigned User", tracking=True)
     department_id = fields.Many2one('hr.department', string="Department", related='user_id.department_id', store=True, readonly=True)
     details = fields.Text()
 
@@ -36,10 +36,10 @@ class Computer(models.Model):
                                 ],string="Type")
     model = fields.Char()
     cpu = fields.Char()
-    gpu = fields.Char()
-    memory = fields.Char()
+    gpu = fields.Char(tracking=True)
+    memory = fields.Char(tracking=True)
     ip_address = fields.Char()
-    monitor_ids = fields.One2many('assets_monitor','computer_id', string='Monitors', readonly=True)
+    monitor_ids = fields.One2many('assets_monitor','computer_id', string='Monitors', readonly=True, tracking=True)
 
     history_ids = fields.One2many(
         comodel_name='assets_history',
