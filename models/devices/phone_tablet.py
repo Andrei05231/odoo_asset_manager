@@ -2,7 +2,7 @@ from odoo import models, fields
 
 class AssetPhone(models.Model):
     _name="assets_phone"
-    _inherit = ['assets_mixin']
+    _inherit = ['assets_mixin', 'mail.thread', 'mail.activity.mixin']
 
     
     model = fields.Char()
@@ -11,7 +11,7 @@ class AssetPhone(models.Model):
 
     serial = fields.Char()
 
-    user_id = fields.Many2one('hr.employee', string="Assigned User")
+    user_id = fields.Many2one('hr.employee', string="Assigned User", tracking=True)
     department_id = fields.Many2one('hr.department', string="Department", related='user_id.department_id', store=True, readonly=True)
     
     device_type = fields.Selection([
