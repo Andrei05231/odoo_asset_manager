@@ -2,6 +2,7 @@ from odoo import models, fields
 
 class Printer(models.Model):
     _name = "assets_printer"
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'assets_inventory_mixin']
 
     ip = fields.Char(string="IP Address")
     name = fields.Char(string="Name")
