@@ -4,7 +4,7 @@ from datetime import timedelta
 class CarAsset(models.Model):
     _name = "assets.car"
     _description = "Track Company Cars"
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin','assets_inventory_mixin']
 
     name = fields.Char(string="Masina", required=True)
     license_plate = fields.Char(string="Nr. Inmatriculare")
