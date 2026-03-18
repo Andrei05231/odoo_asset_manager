@@ -29,11 +29,13 @@
                         <field name="project_id"/>
                         <field name="company_id"/>
                         <field name="inventory_code" readonly="1" class="oe_inline"/>
+                        <field name="asset_date"/>
                         <button name="action_generate_inventory_number"
                                             type="object"
                                             string="Generate"
                                             invisible="inventory_code"
-                                            class="btn-primary oe_inline"/>
+                            class="btn-primary oe_inline"/>
+
                     </group>
                 </sheet>
                 <chatter/>

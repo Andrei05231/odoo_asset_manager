@@ -25,3 +25,4 @@ class Monitor(models.Model):
                                 related='project_id.company_id',
                                 store = True,
                                 readonly = True)
+    asset_date=fields.Date()
