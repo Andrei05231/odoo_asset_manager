@@ -113,8 +113,13 @@
                                     
                                     <div class="oe_kanban_bottom_right">
                                         <span class="badge rounded-pill px-2 py-1" 
-                                              t-attf-style="background-color: #{current_config.color}; color: white;">
-                                            <field name="user_id"/>
+                                            t-attf-style="background-color: #{current_config.color}; color: white;">
+                                            <t t-if="record.user_id.value">
+                                                <field name="user_id"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span>No user</span>
+                                            </t>
                                         </span>
                                     </div>
                                     
