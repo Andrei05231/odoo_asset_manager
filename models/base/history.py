@@ -16,9 +16,10 @@ class Hystory(models.Model):
             ('assets_monitor',"Monitor"),
             ('assets_printer',"Printer"),
             ('assets_phone',"Telefon/Tableta"),
-            ('assets_other',"Echipamente ingineresti"),
+            ('assets_other',"Echipament ingineresc"),
             ('assets.furniture',"Mobilier"),
             ('assets.server',"Server"),
+            ('assets_license',"Licenta"),
         ],
         string='Related Asset'
     )
