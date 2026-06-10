@@ -31,6 +31,34 @@
                     <notebook>
                         <page string="Technical Details" name="details">
                             <field name="details" placeholder="Dimensions, material, assembly info..."/>
+                            
+                          <group>
+                                <button name="action_create_history"
+                                    string="Add History"
+                                    type="object"
+                                    class="btn-primary"/>   
+                             </group>
+
+                            <field name="history_ids">
+                                <list>
+                                    <field name="history_type"/>
+                                    <field name="notes"/>
+                                    <field name="expense_id"/>
+                                </list>
+
+                                <form>
+                                    <group>
+                                        <field name="history_type"/>
+                                        <field name="notes"/>
+                                        <field name="expense_id"/>
+                                        <field name="asset" invisible="1"/>
+                                    </group>
+                                </form>
+
+                            </field>
+
+
+
                         </page>
                     </notebook>
                 </sheet>

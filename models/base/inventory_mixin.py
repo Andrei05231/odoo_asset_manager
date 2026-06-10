@@ -22,6 +22,16 @@ class InventoryNumberMixin(models.AbstractModel):
         store=True
     )
 
+    history_ids = fields.One2many(
+        comodel_name='assets_history',
+        inverse_name='id',
+        compute='_compute_history_ids',
+        string="Last 5 History",
+        store=False
+    )
+
+
+
     def action_generate_inventory_number(self):
             for asset in self:
                 # Skip if already assigned

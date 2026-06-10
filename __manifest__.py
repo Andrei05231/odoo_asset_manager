@@ -1,6 +1,6 @@
 {
     'name':'Asset Manager',
-    'version':'0.7',
+    'version':'0.8',
     'category':'Administration',
     'description':' App used for mananging computers, printers, phones and other assets',
     'depends': ['base','hr','mail'],
