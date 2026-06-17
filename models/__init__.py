@@ -1,5 +1,5 @@
 from .base import inventory_mixin, asset_mixin, asset_tag, history, main_item
-from .computer import computer_category, computer, monitor, compute_score 
+from .computer import computer_category, computer, monitor, compute_score, peripheral 
 from .financial import finance_project
 from .software import license, software
 from .devices import printer, other, phone_tablet

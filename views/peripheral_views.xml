@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <!-- Action -->
+    <record id="asset_peripheral_action" model="ir.actions.act_window">
+        <field name="name">Peripherals</field>
+        <field name="res_model">assets_peripheral</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Form View -->
+    <record id="asset_peripheral_form" model="ir.ui.view">
+        <field name="name">assets.peripheral.form</field>
+        <field name="model">assets_peripheral</field>
+        <field name="arch" type="xml">
+            <form string="Peripheral">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="peripheral_type"/>
+                        <field name="is_used"/>
+                        <field name="computer_id"/>
+                        <field name="serial_number"/>
+                        <field name="inventory_number"/>
+                        <field name="model"/>
+                        <field name="manufacturer"/>
+                        <field name="details"/>
+                        <field name="user_id"/>
+                        <field name="price"/>
+                        <field name="project_id"/>
+                        <field name="company_id"/>
+                        <field name="inventory_code"
+                               readonly="1"
+                               class="oe_inline"/>
+                        <field name="asset_date"/>
+
+                        <button name="action_generate_inventory_number"
+                                type="object"
+                                string="Generate"
+                                invisible="inventory_code"
+                                class="btn-primary oe_inline"/>
+                    </group>
+
+                    <group>
+                        <button name="action_create_history"
+                                string="Add History"
+                                type="object"
+                                class="btn-primary"/>
+                    </group>
+
+                    <field name="history_ids">
+                        <list>
+                            <field name="history_type"/>
+                            <field name="notes"/>
+                            <field name="expense_id"/>
+                        </list>
+
+                        <form>
+                            <group>
+                                <field name="history_type"/>
+                                <field name="notes"/>
+                                <field name="expense_id"/>
+                                <field name="asset" invisible="1"/>
+                            </group>
+                        </form>
+                    </field>
+
+                </sheet>
+
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="asset_peripheral_list" model="ir.ui.view">
+        <field name="name">assets.peripheral.list</field>
+        <field name="model">assets_peripheral</field>
+        <field name="arch" type="xml">
+            <list string="Peripherals">
+                <field name="name"/>
+                <field name="peripheral_type"/>
+                <field name="computer_id"/>
+                <field name="user_id"/>
+                <field name="model"/>
+                <field name="price"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_assets_peripheral"
+              name="Peripherals"
+              parent="menu_assets_pc"
+              action="asset_peripheral_action"/>
+
+</odoo>

@@ -21,6 +21,7 @@
         'views/score_views.xml',
         'views/computer_category_views.xml',
         'views/car_views.xml',
+        'views/peripheral_views.xml',
         'data/mail_template.xml',
         'data/ir_cron_data.xml',
         'views/tempFolder/server_view.xml',

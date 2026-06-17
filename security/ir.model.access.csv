@@ -16,3 +16,4 @@ access_assets_car_user,access_assets_car_user,model_assets_car,odoo_security_gro
 access_asset_item_user,access_asset_item_user,model_asset_item,odoo_security_groups.group_administrativ,1,1,1,0
 access_assets_server_all,access.assets.server.all,model_assets_server,odoo_security_groups.group_administrativ,1,1,1,1
 access_assets_furniture_all,access.assets.furniture.all,model_assets_furniture,odoo_security_groups.group_administrativ,1,1,1,1
+access_assets_peripheral_all,access.assets.peripheral.all,model_assets_peripheral,odoo_security_groups.group_administrativ,1,1,1,1

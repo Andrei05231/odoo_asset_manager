@@ -14,15 +14,15 @@ class AssetInventoryNumber(models.Model):
 
     asset_ref = fields.Reference(
         selection=[
-            ('assets_phone', "Phone / Tablet"),
+            ('assets_phone', "Telefon / Tableta"),
             ('assets_other', "Echipamente Ingineresti"),
             ('assets_computer', "Computer"),
             ('assets_monitor', "Monitor"),
-            ('assets_printer', "Printer"),
-            ('assets.furniture', "Furniture"),
+            ('assets_printer', "Imprimanta"),
+            ('assets.furniture', "Mobila"),
             ('assets.server', "Server"),
-            ('assets_license', "Software License"),
-            ('assets.car',"Vehicle/Car"),
+            ('assets_license', "Licenta Software"),
+            ('assets.car',"Masina"),
         ],
         string="Asset",
     )
