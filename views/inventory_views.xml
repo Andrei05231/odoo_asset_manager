@@ -20,6 +20,7 @@
                             'assets_phone': {'icon': 'fa-mobile', 'color': '#71639e'},
                             'assets_computer': {'icon': 'fa-laptop', 'color': '#00a65a'},
                             'assets_monitor': {'icon': 'fa-desktop', 'color': '#007bff'},
+                            'assets_peripheral': {'icon':'fa-headphones', 'color':'#bc2525'},
                             'assets_printer': {'icon': 'fa-print', 'color': '#ff9800'},
                             'assets.server': {'icon': 'fa-server', 'color': '#dc3545'},
                             'assets.furniture': {'icon': 'fas fa-building', 'color': '#8d6e63'},
